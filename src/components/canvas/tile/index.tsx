@@ -16,11 +16,11 @@ const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
     height: size,
     backgroundColor: hover ? "red" : data.color,
 
-    borderLeft: "1px solid purple",
-    borderTop: "1px solid purple",
+    borderLeft: "1px solid gray",
+    borderTop: "1px solid gray",
 
-    borderRight: renderRight ? "1px solid purple" : "",
-    borderBottom: renderBottom ? "1px solid purple" : "",
+    borderRight: renderRight ? "1px solid gray" : "",
+    borderBottom: renderBottom ? "1px solid gray" : "",
   };
 
   const onMouseEnter = () => {
@@ -39,7 +39,7 @@ const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
       onMouseLeave={onMouseLeave}
     >
       {hover && (
-        <div className="absolute w-32 z-50 pointer-events-none select-none">
+        <div className="absolute w-32 z-10 pointer-events-none select-none">
           {"x: " + data.pos.x + " y: " + data.pos.y}
         </div>
       )}

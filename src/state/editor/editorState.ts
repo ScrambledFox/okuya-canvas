@@ -1,9 +1,22 @@
 import { Wall } from "@/types/inter";
 import { create } from "zustand";
 
+const handleDeleteObjectWithId = (id: string | null) => {
+  console.log("deleteObjectWithId", id);
+
+  if (id === null) return;
+};
+
+// Define getMetersFromPixelLength outside the store definition
+export const getMetersFromPixelLength = (length: number) => {
+  return length * useEditorState.getState().mPerPixel;
+};
+
 export type EditorState = {
   gridSize: { x: number; y: number };
   tileSize: number;
+
+  mPerPixel: number;
 
   walls: Wall[];
   setWalls: (newWalls: Wall[]) => void;
@@ -13,15 +26,11 @@ export type EditorState = {
   deleteObjectWithId: (id: string | null) => void;
 };
 
-const handleDeleteObjectWithId = (id: string | null) => {
-  console.log("deleteObjectWithId", id);
-
-  if (id === null) return;
-};
-
 export const useEditorState = create<EditorState>((set) => ({
   gridSize: { x: 30, y: 30 },
   tileSize: 25,
+
+  mPerPixel: 0.02,
 
   walls: [],
   setWalls: (newWalls) => set({ walls: newWalls }),

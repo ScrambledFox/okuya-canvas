@@ -49,23 +49,44 @@ const Wall = ({ data }: { data: WallType }) => {
 
   return (
     // Render a line between the two points
-    <svg
-      className="absolute z-50 overflow-visible pointer-events-none select-none"
-      style={style}
-    >
-      <line
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        onMouseDown={onMouseDown}
-        className=" pointer-events-auto select-all hover:cursor-pointer"
+    <>
+      <svg
+        className="absolute z-10 overflow-visible pointer-events-none select-none"
         style={style}
-        x1={data.from.x * tileSize}
-        y1={data.from.y * tileSize}
-        x2={data.to.x * tileSize}
-        y2={data.to.y * tileSize}
-        stroke="#fff"
-      />
-    </svg>
+      >
+        <line
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onMouseDown={onMouseDown}
+          className=" pointer-events-auto select-all hover:cursor-pointer"
+          style={style}
+          x1={data.from.x * tileSize}
+          y1={data.from.y * tileSize}
+          x2={data.to.x * tileSize}
+          y2={data.to.y * tileSize}
+          stroke="#fff"
+        />
+      </svg>
+      <h2
+        className="absolute z-50 pointer-events-none select-none"
+        style={{
+          left: ((data.from.x + data.to.x) / 2) * tileSize,
+          top: ((data.from.y + data.to.y) / 2) * tileSize,
+        }}
+        id="draw-line"
+      >
+        {/* Calculate length of wall in meters */}
+        {(
+          Math.sqrt(
+            Math.pow(data.from.x - data.to.x, 2) +
+              Math.pow(data.from.y - data.to.y, 2)
+          ) / 2
+        )
+          .toFixed(2)
+          .toString()}
+        m
+      </h2>
+    </>
   );
 };
 

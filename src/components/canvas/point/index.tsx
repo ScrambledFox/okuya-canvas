@@ -74,7 +74,7 @@ const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
       onMouseLeave={onMouseLeave}
       onMouseMove={onMouseMove}
       onMouseDown={onMouseDown}
-      className="absolute z-10"
+      className="absolute z-20"
     >
       {hover && (
         <div className="absolute w-32 z-50 pointer-events-none select-none">

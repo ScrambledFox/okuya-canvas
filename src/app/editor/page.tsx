@@ -1,6 +1,7 @@
 "use client";
 import ToolBar from "@/components/tools";
 import WallToolDrawer from "@/components/tools/tool/wallTool/wallToolDrawer";
+import Version from "@/components/version";
 import dynamic from "next/dynamic";
 
 const Canvas = dynamic(() => import("@/components/canvas"), {
@@ -14,6 +15,7 @@ export default function Page() {
       <ToolBar />
 
       <WallToolDrawer />
+      <Version />
     </div>
   );
 }

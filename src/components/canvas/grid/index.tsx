@@ -69,7 +69,7 @@ const Grid = ({ width, height, size }: GridProps) => {
         </div>
 
         {/* Render Points */}
-        {selectedTool !== "select" && (
+        {selectedTool === "wall" && (
           <div id="points" className="absolute left-0 top-0">
             {points.map((row, rowIndex) => (
               <div key={rowIndex} className="flex flex-row">
@@ -82,7 +82,7 @@ const Grid = ({ width, height, size }: GridProps) => {
                     // color={`hsl(${
                     //   (point.pos.x * point.pos.y) % 360
                     // }, 100%, 50%)`}
-                    color="#222"
+                    color="#444"
                   />
                 ))}
               </div>

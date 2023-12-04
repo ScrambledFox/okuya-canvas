@@ -34,7 +34,7 @@ const Tile = ({ data, size }: TileProps) => {
       onMouseLeave={onMouseLeave}
     >
       {hover && (
-        <div className="absolute w-32 z-50 pointer-events-none">
+        <div className="absolute w-32 z-50 pointer-events-none select-none">
           {"x: " + data.pos.x + " y: " + data.pos.y}
         </div>
       )}

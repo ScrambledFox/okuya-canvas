@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 
+import { useToolState } from "@/state/editor/tools/toolState";
 import { GridPoint, GridTile } from "@/types/tiles";
+import { ToolType } from "@/types/tools";
 import { v4 as uuidv4 } from "uuid";
 
 import Tile from "../tile";
 import Point from "../point";
+import DragLine from "../dragLine";
 
 interface GridProps {
   width: number;
@@ -15,6 +18,8 @@ interface GridProps {
 const Grid = ({ width, height, size }: GridProps) => {
   const [tiles, setTiles] = useState<GridTile[][]>([]);
   const [points, setPoints] = useState<GridPoint[][]>([]);
+
+  const selectedTool = useToolState((state) => state.selectedTool);
 
   useEffect(() => {
     setTiles(
@@ -56,21 +61,25 @@ const Grid = ({ width, height, size }: GridProps) => {
         </div>
 
         {/* Render Points */}
-        <div id="points" className="absolute left-0 top-0">
-          {points.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex flex-row">
-              {row.map((point, pointIndex) => (
-                <Point
-                  key={pointIndex}
-                  gridSize={size}
-                  pointSize={10}
-                  data={point}
-                  color={`hsl(${(point.pos.x * point.pos.y) % 360}, 100%, 50%)`}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
+        {selectedTool === "wall" && (
+          <div id="points" className="absolute left-0 top-0">
+            {points.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex flex-row">
+                {row.map((point, pointIndex) => (
+                  <Point
+                    key={pointIndex}
+                    gridSize={size}
+                    pointSize={10}
+                    data={point}
+                    color={`hsl(${
+                      (point.pos.x * point.pos.y) % 360
+                    }, 100%, 50%)`}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

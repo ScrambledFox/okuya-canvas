@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { GridPoint } from "@/types/tiles";
+import { useWallToolState } from "@/state/editor/tools/wallToolState";
 
 interface PointProps {
   data: GridPoint;
@@ -28,15 +29,24 @@ const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
     setHover(false);
   };
 
+  const onMouseMove = (e: any) => {};
+
+  const onMouseDown = (e: any) => {
+    console.log("start line");
+    useWallToolState.getState().setDragStart(data.pos);
+  };
+
   return (
     <div
       style={style}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onMouseMove={onMouseMove}
+      onMouseDown={onMouseDown}
       className="absolute z-10"
     >
       {hover && (
-        <div className="absolute w-32 z-50 pointer-events-none">
+        <div className="absolute w-32 z-50 pointer-events-none select-none">
           {"x: " + data.pos.x + " y: " + data.pos.y}
         </div>
       )}

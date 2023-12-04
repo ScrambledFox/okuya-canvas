@@ -8,3 +8,8 @@ export type GridInter = {
   id: string;
   type: InterType;
 };
+
+// Wall type to store wall data that inherits from GridInter
+export type Wall = GridInter & {
+  thickness: number;
+};

@@ -1,18 +1,18 @@
-import { Tile } from "@/types/tiles";
+import { GridTile } from "@/types/tiles";
 import React from "react";
 
 interface TileProps {
-  tileInfo: Tile;
+  data: GridTile;
   size: number;
 }
 
-const Tile = ({ tileInfo, size }: TileProps) => {
+const Tile = ({ data, size }: TileProps) => {
   const [hover, setHover] = React.useState(false);
 
   const style = {
     width: size,
     height: size,
-    backgroundColor: hover ? "red" : tileInfo.color,
+    backgroundColor: hover ? "red" : data.color,
 
     borderLeft: "1px solid purple",
     borderTop: "1px solid purple",
@@ -34,8 +34,8 @@ const Tile = ({ tileInfo, size }: TileProps) => {
       onMouseLeave={onMouseLeave}
     >
       {hover && (
-        <div className="absolute z-10 pointer-events-none">
-          {"x: " + tileInfo.x + " y: " + tileInfo.y}
+        <div className="absolute w-32 z-50 pointer-events-none">
+          {"x: " + data.pos.x + " y: " + data.pos.y}
         </div>
       )}
     </div>

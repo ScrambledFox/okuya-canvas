@@ -50,13 +50,14 @@ const Wall = ({ data }: { data: WallType }) => {
   return (
     // Render a line between the two points
     <svg
-      className="absolute z-100 overflow-visible hover:cursor-pointer"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onMouseDown={onMouseDown}
+      className="absolute z-50 overflow-visible pointer-events-none select-none"
       style={style}
     >
       <line
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onMouseDown={onMouseDown}
+        className=" pointer-events-auto select-all hover:cursor-pointer"
         style={style}
         x1={data.from.x * tileSize}
         y1={data.from.y * tileSize}

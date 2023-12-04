@@ -6,5 +6,9 @@ const Canvas = dynamic(() => import("../../components/canvas"), {
 });
 
 export default function Page() {
-  return <Canvas />;
+  return (
+    <div className="h-screen">
+      <Canvas />
+    </div>
+  );
 }

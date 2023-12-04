@@ -6,6 +6,8 @@ import Konva from "konva";
 import { Stage, Layer, Circle, Rect, Transformer } from "react-konva";
 import { get } from "http";
 
+import Grid from "./grid";
+
 // Remove the import statement for React since it is already imported in the file above
 // import React from "react";
 
@@ -126,37 +128,38 @@ function Canvas(props: any) {
   };
 
   return (
-    <Stage
-      width={window.innerWidth}
-      height={window.innerHeight}
-      className={"canvas"}
-      role={"img"}
-      style={{ position: "absolute", top: 0, left: 0 }}
-      tabIndex={0}
-      title={"Canvas"}
-      onClick={checkDeselect}
-      onTouchStart={checkDeselect}
-    >
-      <Layer>
-        {rectangles.map((rect: any, i: number) => {
-          return (
-            <CustomComponent
-              key={i}
-              shapeProps={rect}
-              isSelected={rect.id === selectedId}
-              onSelect={() => {
-                selectShape(rect.id);
-              }}
-              onChange={(newAttrs: any) => {
-                const rects = rectangles.slice();
-                rects[i] = newAttrs;
-                setRectangles(rects);
-              }}
-            />
-          );
-        })}
-      </Layer>
-    </Stage>
+    // <Stage
+    //   width={window.innerWidth}
+    //   height={window.innerHeight}
+    //   className={"canvas"}
+    //   role={"img"}
+    //   style={{ position: "absolute", top: 0, left: 0 }}
+    //   tabIndex={0}
+    //   title={"Canvas"}
+    //   onClick={checkDeselect}
+    //   onTouchStart={checkDeselect}
+    // >
+    //   <Layer>
+    //     {rectangles.map((rect: any, i: number) => {
+    //       return (
+    //         <CustomComponent
+    //           key={i}
+    //           shapeProps={rect}
+    //           isSelected={rect.id === selectedId}
+    //           onSelect={() => {
+    //             selectShape(rect.id);
+    //           }}
+    //           onChange={(newAttrs: any) => {
+    //             const rects = rectangles.slice();
+    //             rects[i] = newAttrs;
+    //             setRectangles(rects);
+    //           }}
+    //         />
+    //       );
+    //     })}
+    //   </Layer>
+    // </Stage>
+    <Grid height={30} width={30} size={25} />
   );
 }
 

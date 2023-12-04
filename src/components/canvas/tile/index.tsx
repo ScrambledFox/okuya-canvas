@@ -3,10 +3,12 @@ import React from "react";
 
 interface TileProps {
   data: GridTile;
+  renderBottom: boolean;
+  renderRight: boolean;
   size: number;
 }
 
-const Tile = ({ data, size }: TileProps) => {
+const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
   const [hover, setHover] = React.useState(false);
 
   const style = {
@@ -16,6 +18,9 @@ const Tile = ({ data, size }: TileProps) => {
 
     borderLeft: "1px solid purple",
     borderTop: "1px solid purple",
+
+    borderRight: renderRight ? "1px solid purple" : "",
+    borderBottom: renderBottom ? "1px solid purple" : "",
   };
 
   const onMouseEnter = () => {

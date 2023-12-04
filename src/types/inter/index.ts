@@ -11,5 +11,5 @@ export type GridInter = {
 
 // Wall type to store wall data that inherits from GridInter
 export type Wall = GridInter & {
-  thickness: number;
+  type: "wall";
 };

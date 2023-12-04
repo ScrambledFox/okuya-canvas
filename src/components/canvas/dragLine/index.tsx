@@ -1,5 +1,5 @@
 import { useWallToolState } from "@/state/editor/tools/wallToolState";
-import { PointCoord } from "@/types/tiles";
+import { screenCoord } from "@/types/grid";
 import React, { useEffect, useState } from "react";
 
 interface DragLineProps {
@@ -8,12 +8,8 @@ interface DragLineProps {
 }
 
 const DragLine = () => {
-  const start = useWallToolState((state) => state.dragStart);
-  const end = useWallToolState((state) => state.dragEnd);
-
-  const [colour, setColour] = useState("white");
-
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const start = useWallToolState((state) => state.lineStart);
+  const [mousePos, setMousePos] = useState<screenCoord | null>(null);
 
   useEffect(() => {
     const onMouseMove = (e: any) => {
@@ -25,38 +21,24 @@ const DragLine = () => {
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
     };
-  }, []);
+  }, [start]);
 
   return (
-    <div>
-      <svg width="100%" height="100%">
-        {/* Render the ghost line while dragging */}
-        {start != null && (
-          <>
-            <line
-              x1={start.x}
-              y1={start.y}
-              x2={mousePos.x}
-              y2={mousePos.y}
-              stroke="#fff"
-            />
-          </>
-        )}
-      </svg>
-
-      {/* Draw circle on mousePos */}
-      <div
-        style={{
-          backgroundColor: colour,
-          left: mousePos.x - 4,
-          top: mousePos.y - 4,
-          width: 8,
-          height: 8,
-          borderRadius: "50%",
-        }}
-        className="absolute z-10"
-      ></div>
-    </div>
+    <svg width="100%" height="100%">
+      {/* Render the ghost line while dragging */}
+      {start != null && mousePos != null && (
+        <>
+          <line
+            x1={start.screenCoord.x}
+            y1={start.screenCoord.y}
+            x2={mousePos.x}
+            y2={mousePos.y}
+            stroke="#aaa"
+            strokeWidth="2"
+          />
+        </>
+      )}
+    </svg>
   );
 };
 

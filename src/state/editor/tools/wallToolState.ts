@@ -2,36 +2,40 @@
 import { create } from "zustand";
 
 import { Wall } from "@/types/inter";
-import { PointCoord } from "@/types/tiles";
+import { DragPoint } from "@/types/grid";
+
+import { v4 as uuidv4 } from "uuid";
+import { useEditorState } from "../editorState";
 
 export type WallToolState = {
-  dragStart: PointCoord | null;
-  dragEnd: PointCoord | null;
-  setDragStart: (coord: PointCoord) => void;
-  setDragEnd: (coord: PointCoord) => void;
+  lineStart: DragPoint | null;
+  setLineStart: (coord: DragPoint | null) => void;
+  cancelLine: () => void;
 
-  walls: Wall[];
-
-  setWalls: (walls: Wall[]) => void;
-  resetWalls: () => void;
-  createWall: () => void;
+  createWall: (from: DragPoint, to: DragPoint) => void;
   deleteWall: (id: string) => void;
 };
 
-const createWall = () => {};
+const createWall = (start: DragPoint, end: DragPoint) => {
+  const wall: Wall = {
+    id: uuidv4(),
+    from: start.pointCoord,
+    to: end.pointCoord,
+    type: "wall",
+  };
+
+  useEditorState
+    .getState()
+    .setWalls([...useEditorState.getState().walls, wall]);
+};
 
 const deleteWall = (id: string) => {};
 
 export const useWallToolState = create<WallToolState>((set) => ({
-  dragStart: null,
-  dragEnd: null,
-  setDragStart: (coord) => set({ dragStart: coord }),
-  setDragEnd: (coord) => set({ dragEnd: coord }),
+  lineStart: null,
+  setLineStart: (data) => set({ lineStart: data }),
+  cancelLine: () => set({ lineStart: null }),
 
-  walls: [],
-
-  setWalls: (walls) => set({ walls }),
-  resetWalls: () => set({ walls: [] }),
-  createWall: () => createWall(),
+  createWall: (lineStart, lineEnd) => createWall(lineStart, lineEnd),
   deleteWall: (id) => deleteWall(id),
 }));

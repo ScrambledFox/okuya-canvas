@@ -1,9 +1,23 @@
 import DragLine from "@/components/canvas/dragLine";
 import { useWallToolState } from "@/state/editor/tools/wallToolState";
-import React from "react";
+import React, { useEffect } from "react";
 
 const WallToolDrawer = () => {
-  const isDragging = useWallToolState((state) => state.dragStart != null);
+  const isDragging = useWallToolState((state) => state.lineStart != null);
+
+  useEffect(() => {
+    const onKeyUp = (e: any) => {
+      if (e.key === "Escape") {
+        useWallToolState.getState().cancelLine();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyUp);
+    };
+  });
 
   return (
     <div

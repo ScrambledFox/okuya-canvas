@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { GridPoint } from "@/types/tiles";
 import { useWallToolState } from "@/state/editor/tools/wallToolState";
+import { useToolState } from "@/state/editor/tools/toolState";
 
 interface PointProps {
   data: GridPoint;
@@ -21,6 +22,14 @@ const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
     borderRadius: "50%",
   };
 
+  const startLine = (screenX: number, screenY: number) => {
+    console.log("start line");
+    useWallToolState.getState().setLineStart({
+      pointCoord: data.pos,
+      screenCoord: { x: screenX, y: screenY },
+    });
+  };
+
   const onMouseEnter = () => {
     setHover(true);
   };
@@ -32,8 +41,30 @@ const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
   const onMouseMove = (e: any) => {};
 
   const onMouseDown = (e: any) => {
-    console.log("start line");
-    useWallToolState.getState().setDragStart(data.pos);
+    const selectedTool = useToolState.getState().selectedTool;
+
+    switch (selectedTool) {
+      case "wall":
+        if (useWallToolState.getState().lineStart === null) {
+          startLine(e.clientX, e.clientY);
+        } else {
+          console.log("create wall");
+          useWallToolState
+            .getState()
+            .createWall(useWallToolState.getState().lineStart!, {
+              pointCoord: data.pos,
+              screenCoord: { x: e.clientX, y: e.clientY },
+            });
+
+          // Reset the line start to new point
+          startLine(e.clientX, e.clientY);
+
+          // TODO: if line end crosses a line, cancel new line making.
+        }
+        break;
+      default:
+        break;
+    }
   };
 
   return (

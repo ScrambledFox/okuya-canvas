@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import { useToolState } from "@/state/editor/tools/toolState";
 import { GridPoint, GridTile } from "@/types/tiles";
-import { ToolType } from "@/types/tools";
 import { v4 as uuidv4 } from "uuid";
 
 import Tile from "../tile";
 import Point from "../point";
-import DragLine from "../dragLine";
+import Wall from "../house/wall";
+import { useEditorState } from "@/state/editor/editorState";
 
 interface GridProps {
   width: number;
@@ -20,6 +20,8 @@ const Grid = ({ width, height, size }: GridProps) => {
   const [points, setPoints] = useState<GridPoint[][]>([]);
 
   const selectedTool = useToolState((state) => state.selectedTool);
+
+  const walls = useEditorState((state) => state.walls);
 
   useEffect(() => {
     setTiles(
@@ -54,14 +56,20 @@ const Grid = ({ width, height, size }: GridProps) => {
           {tiles.map((row, rowIndex) => (
             <div key={rowIndex} className="flex flex-row">
               {row.map((tile, tileIndex) => (
-                <Tile key={tileIndex} size={size} data={tile} />
+                <Tile
+                  key={tileIndex}
+                  size={size}
+                  data={tile}
+                  renderBottom={rowIndex === height - 1}
+                  renderRight={tileIndex === width - 1}
+                />
               ))}
             </div>
           ))}
         </div>
 
         {/* Render Points */}
-        {selectedTool === "wall" && (
+        {selectedTool !== "select" && (
           <div id="points" className="absolute left-0 top-0">
             {points.map((row, rowIndex) => (
               <div key={rowIndex} className="flex flex-row">
@@ -71,15 +79,23 @@ const Grid = ({ width, height, size }: GridProps) => {
                     gridSize={size}
                     pointSize={10}
                     data={point}
-                    color={`hsl(${
-                      (point.pos.x * point.pos.y) % 360
-                    }, 100%, 50%)`}
+                    // color={`hsl(${
+                    //   (point.pos.x * point.pos.y) % 360
+                    // }, 100%, 50%)`}
+                    color="#222"
                   />
                 ))}
               </div>
             ))}
           </div>
         )}
+
+        {/* Render walls */}
+        <div id="walls" className="absolute left-0 top-0">
+          {walls.map((wall) => (
+            <Wall key={wall.id} data={wall} />
+          ))}
+        </div>
       </div>
     </div>
   );

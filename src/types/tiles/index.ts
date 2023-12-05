@@ -1,12 +1,17 @@
 // Type definitions for tile flags
-export type TileFlags = "wall" | "door" | "window";
-
+export enum TileFlags {
+  None = 0,
+  Wall = 1 << 0,
+  Door = 1 << 1,
+  Window = 1 << 2,
+  Flooded = 1 << 3,
+}
 // Create tile type to store tile data
 export type GridTile = {
   pos: TileCoord;
   id: string;
   color: string;
-  flags: TileFlags[];
+  flags: TileFlags;
 };
 
 export type TileCoord = {

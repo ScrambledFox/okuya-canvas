@@ -3,8 +3,8 @@ import { PointCoord } from "../tiles";
 export type InterType = "wall" | "door" | "window";
 
 export type GridInter = {
-  from: PointCoord;
-  to: PointCoord;
+  start: PointCoord;
+  end: PointCoord;
   id: string;
   type: InterType;
 };

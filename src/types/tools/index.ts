@@ -1,1 +1,1 @@
-export type ToolType = "select" | "wall" | "door" | "window";
+export type ToolType = "select" | "wall" | "door" | "window" | "dev-floodfill";

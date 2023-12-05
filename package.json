@@ -1,6 +1,6 @@
 {
   "name": "okuya-canvas",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,6 +15,7 @@
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "react-konva": "^18.2.10",
+    "react-spinners": "^0.13.8",
     "uuid": "^9.0.1",
     "zustand": "^4.4.7"
   },

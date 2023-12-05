@@ -1,13 +1,6 @@
 import { create } from "zustand";
 import { useEditorState } from "../editorState";
 
-export type SelectToolState = {
-  selectedObject: string | null;
-  selectObject: (id: string | null) => void;
-
-  deleteSelectedObject: () => void;
-};
-
 const handleDeleteSelectedObject = () => {
   const selected = useSelectToolState.getState().selectedObject;
   if (selected === null) return;
@@ -15,9 +8,24 @@ const handleDeleteSelectedObject = () => {
   useEditorState.getState().deleteObjectWithId(selected);
 };
 
-export const useSelectToolState = create<SelectToolState>((set) => ({
+export type SelectToolState = {
+  selectedObject: string | null;
+  getHasSelected: () => boolean;
+
+  select: (id: string | null) => void;
+  deselect: () => void;
+
+  deleteSelectedObject: () => void;
+};
+
+export const useSelectToolState = create<SelectToolState>((set, get) => ({
   selectedObject: null,
-  selectObject: (id) => set({ selectedObject: id }),
+  getHasSelected: () => {
+    return get().selectedObject !== null;
+  },
+
+  select: (id) => set({ selectedObject: id }),
+  deselect: () => set({ selectedObject: null }),
 
   deleteSelectedObject: () => handleDeleteSelectedObject(),
 }));

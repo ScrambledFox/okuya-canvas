@@ -13,8 +13,18 @@ interface PointProps {
 const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
   const [hover, setHover] = React.useState(false);
 
+  const getIsValidLineEndPoint = useWallToolState(
+    (state) => state.getIsValidLineEndPoint
+  );
+
   const style = {
-    backgroundColor: hover ? "white" : color,
+    backgroundColor: hover
+      ? useWallToolState.getState().lineStart === null
+        ? "white"
+        : getIsValidLineEndPoint(data.pos)
+        ? "white"
+        : "red"
+      : color,
     left: data.pos.x * gridSize - pointSize / 2 - (hover ? pointSize / 4 : 0),
     top: data.pos.y * gridSize - pointSize / 2 - (hover ? pointSize / 4 : 0),
     width: pointSize + (hover ? pointSize / 2 : 0),
@@ -48,6 +58,10 @@ const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
         if (useWallToolState.getState().lineStart === null) {
           startLine(e.clientX, e.clientY);
         } else {
+          // check if valid
+          if (!getIsValidLineEndPoint(data.pos)) return;
+
+          // Okay continue
           console.log("create wall");
           useWallToolState
             .getState()

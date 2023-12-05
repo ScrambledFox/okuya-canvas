@@ -4,6 +4,7 @@ import { Wall as WallType } from "@/types/inter";
 import { useEditorState } from "@/state/editor/editorState";
 import { useToolState } from "@/state/editor/tools/toolState";
 import { useSelectToolState } from "@/state/editor/tools/selectToolState";
+import { useWallToolState } from "@/state/editor/tools/wallToolState";
 
 const Wall = ({ data }: { data: WallType }) => {
   const selectedTool = useToolState((state) => state.selectedTool);
@@ -19,7 +20,7 @@ const Wall = ({ data }: { data: WallType }) => {
       if (!selected) return;
 
       if (e.key === "Delete") {
-        useEditorState.getState().removeWall(data.id);
+        useWallToolState.getState().removeWall(data.id);
       }
     };
 
@@ -40,7 +41,7 @@ const Wall = ({ data }: { data: WallType }) => {
 
   const onMouseDown = () => {
     if (selectedTool === "select") {
-      useSelectToolState.getState().selectObject(data.id);
+      useSelectToolState.getState().select(data.id);
     }
   };
   const style = {
@@ -60,26 +61,26 @@ const Wall = ({ data }: { data: WallType }) => {
           onMouseDown={onMouseDown}
           className=" pointer-events-auto select-all hover:cursor-pointer"
           style={style}
-          x1={data.from.x * tileSize}
-          y1={data.from.y * tileSize}
-          x2={data.to.x * tileSize}
-          y2={data.to.y * tileSize}
+          x1={data.start.x * tileSize}
+          y1={data.start.y * tileSize}
+          x2={data.end.x * tileSize}
+          y2={data.end.y * tileSize}
           stroke="#fff"
         />
       </svg>
       <h2
         className="absolute z-50 pointer-events-none select-none"
         style={{
-          left: ((data.from.x + data.to.x) / 2) * tileSize,
-          top: ((data.from.y + data.to.y) / 2) * tileSize,
+          left: ((data.start.x + data.end.x) / 2) * tileSize,
+          top: ((data.start.y + data.end.y) / 2) * tileSize,
         }}
         id="draw-line"
       >
         {/* Calculate length of wall in meters */}
         {(
           Math.sqrt(
-            Math.pow(data.from.x - data.to.x, 2) +
-              Math.pow(data.from.y - data.to.y, 2)
+            Math.pow(data.start.x - data.end.x, 2) +
+              Math.pow(data.start.y - data.end.y, 2)
           ) / 2
         )
           .toFixed(2)

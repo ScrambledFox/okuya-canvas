@@ -3,6 +3,8 @@ import ToolIcon from "./tool";
 
 import { FaHandPointer } from "react-icons/fa";
 import { FaRegHandPointer } from "react-icons/fa";
+import { TbPointer } from "react-icons/tb";
+import { TbPointerFilled } from "react-icons/tb";
 import { GiBrickWall } from "react-icons/gi";
 import { FaDoorClosed } from "react-icons/fa";
 import { TbWindow } from "react-icons/tb";
@@ -20,7 +22,7 @@ const ToolBar = () => {
       <ToolIcon
         name="Direct Select"
         toolType="direct-select"
-        icon={FaHandPointer}
+        icon={TbPointerFilled}
       />
       <ToolIcon name="Wall" toolType="wall" icon={GiBrickWall} />
       <ToolIcon name="Door" toolType="door" icon={FaDoorClosed} />

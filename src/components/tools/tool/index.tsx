@@ -1,3 +1,5 @@
+import SelectableIcon from "@/components/ui/selectableIcon";
+import { useSelectToolState } from "@/state/editor/tools/selectToolState";
 import { useToolState } from "@/state/editor/tools/toolState";
 import { ToolType } from "@/types/tools";
 import React, { ElementType, ReactNode } from "react";
@@ -13,23 +15,18 @@ const ToolIcon = (props: ToolIconProps) => {
   const selected =
     useToolState((state) => state.selectedTool) === props.toolType;
 
-  const style = {
-    color: selected ? "white" : "gray",
-  };
-
   const onSelect = () => {
+    useSelectToolState.getState().deselect();
     useToolState.getState().selectTool(props.toolType);
   };
 
   return (
-    <div
-      style={style}
-      onClick={onSelect}
-      className=" max-h-16 aspect-square flex flex-col justify-center items-center p-2 hover:bg-white hover:bg-opacity-10 rounded-lg cursor-pointer"
-    >
-      <props.icon size={25} />
-      <div className="text-sm mt-2">{props.name}</div>
-    </div>
+    <SelectableIcon
+      icon={props.icon}
+      name={props.name}
+      onSelect={onSelect}
+      selected={selected}
+    />
   );
 };
 

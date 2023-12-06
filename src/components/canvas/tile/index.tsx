@@ -1,8 +1,12 @@
+import { useEditorState } from "@/state/editor/editorState";
+import { useFilterState } from "@/state/editor/filters/filterState";
 import { useSelectToolState } from "@/state/editor/tools/selectToolState";
 import { useToolState } from "@/state/editor/tools/toolState";
+import { FilterFlags } from "@/types/filters";
 import { GridTile, TileFlags } from "@/types/tiles";
 import { doFloodFill } from "@/util/tile/floodfill";
-import React from "react";
+import Color from "color";
+import React, { useEffect } from "react";
 
 interface TileProps {
   data: GridTile;
@@ -16,26 +20,33 @@ const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
 
   const [hoverColour, setHoverColour] = React.useState("#222");
 
-  const getTileColour = () => {
+  const [tileColour, setTileColour] = React.useState("#000");
+
+  const tiles = useEditorState((state) => state.tiles);
+  const filter = useFilterState((state) => state.filter);
+
+  useEffect(() => {
     if (hover) {
-      return hoverColour;
+      setTileColour(hoverColour);
+      return;
     }
 
-    if (data.flags & TileFlags.Wall) {
-      return "#f00";
-    }
+    let colour = Color("#000");
+    const filter = useFilterState.getState().filter;
 
-    if (data.flags & TileFlags.Flooded) {
-      return "#f0f";
-    }
+    if (filter & FilterFlags.Wall && data.flags & TileFlags.Wall)
+      colour = colour.mix(Color("#fff"), 0.1);
 
-    return "#000";
-  };
+    if (filter & FilterFlags.Flooded && data.flags & TileFlags.Flooded)
+      colour = colour.mix(Color("#00f"), 0.1);
+
+    setTileColour(colour.string());
+  });
 
   const style = {
     width: size,
     height: size,
-    backgroundColor: getTileColour(),
+    backgroundColor: tileColour,
 
     borderLeft: "1px solid gray",
     borderTop: "1px solid gray",

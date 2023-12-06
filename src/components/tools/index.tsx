@@ -8,10 +8,14 @@ import { FaDoorClosed } from "react-icons/fa";
 import { TbWindow } from "react-icons/tb";
 
 import { FaDev } from "react-icons/fa";
+import Container from "../ui/container";
 
 const ToolBar = () => {
   return (
-    <div className="fixed top-8 left-8 bg-neutral-950 p-2 border border-neutral-700 rounded-lg">
+    <Container className="top-2 left-2">
+      <div className="flex flex-col justify-center text-center">
+        <h1 className="text-neutral-100 text-lg font-semibold">Tools</h1>
+      </div>
       <ToolIcon name="Select" toolType="select" icon={FaRegHandPointer} />
       <ToolIcon
         name="Direct Select"
@@ -22,7 +26,7 @@ const ToolBar = () => {
       <ToolIcon name="Door" toolType="door" icon={FaDoorClosed} />
       <ToolIcon name="Window" toolType="window" icon={TbWindow} />
       <ToolIcon name="Floodfill" toolType="dev-floodfill" icon={FaDev} />
-    </div>
+    </Container>
   );
 };
 

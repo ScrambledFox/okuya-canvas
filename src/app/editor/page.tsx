@@ -1,4 +1,5 @@
 "use client";
+import FilterDock from "@/components/filters";
 import ToolBar from "@/components/tools";
 import WallToolDrawer from "@/components/tools/tool/wallTool/wallToolDrawer";
 import Version from "@/components/version";
@@ -24,7 +25,9 @@ export default function Page() {
   return (
     <div className="h-screen">
       <Canvas />
+
       <ToolBar />
+      <FilterDock />
 
       <WallToolDrawer />
       <Version />

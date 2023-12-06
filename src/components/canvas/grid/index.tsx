@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect } from "react";
 
 import { useToolState } from "@/state/editor/tools/toolState";
 import { GridPoint, GridTile } from "@/types/tiles";
@@ -31,8 +31,8 @@ const Grid = ({ width, height, size }: GridProps) => {
 
   useEffect(() => {
     setTiles(
-      Array.from({ length: height }, (v, y) =>
-        Array.from({ length: width }, (b, x) => {
+      Array.from({ length: height }, (i, y) =>
+        Array.from({ length: width }, (j, x) => {
           return {
             pos: { x: x, y: y },
             id: uuidv4(),
@@ -59,50 +59,56 @@ const Grid = ({ width, height, size }: GridProps) => {
       <div className="self-center items-center fixed">
         <Suspense fallback={<LoadingElement />}>
           {/* Render Tiles */}
-          <div id="tiles">
-            {tiles.map((row, rowIndex) => (
-              <div key={rowIndex} className="flex flex-row">
-                {row.map((tile, tileIndex) => (
-                  <Tile
-                    key={tileIndex}
-                    size={size}
-                    data={tile}
-                    renderBottom={rowIndex === height - 1}
-                    renderRight={tileIndex === width - 1}
-                  />
+
+          {tiles.length === 0 && <LoadingElement />}
+          {tiles.length !== 0 && points.length !== 0 && (
+            <>
+              <div id="tiles">
+                {tiles.map((row, rowIndex) => (
+                  <div key={rowIndex} className="flex flex-row">
+                    {row.map((tile, tileIndex) => (
+                      <Tile
+                        key={tileIndex}
+                        size={size}
+                        data={tile}
+                        renderBottom={rowIndex === height - 1}
+                        renderRight={tileIndex === width - 1}
+                      />
+                    ))}
+                  </div>
                 ))}
               </div>
-            ))}
-          </div>
 
-          {/* Render Points */}
-          {selectedTool === "wall" && (
-            <div id="points" className="absolute left-0 top-0">
-              {points.map((row, rowIndex) => (
-                <div key={rowIndex} className="flex flex-row">
-                  {row.map((point, pointIndex) => (
-                    <Point
-                      key={pointIndex}
-                      gridSize={size}
-                      pointSize={10}
-                      data={point}
-                      // color={`hsl(${
-                      //   (point.pos.x * point.pos.y) % 360
-                      // }, 100%, 50%)`}
-                      color="#444"
-                    />
+              {/* Render points */}
+              {selectedTool === "wall" && (
+                <div id="points" className="absolute left-0 top-0">
+                  {points.map((row, rowIndex) => (
+                    <div key={rowIndex} className="flex flex-row">
+                      {row.map((point, pointIndex) => (
+                        <Point
+                          key={pointIndex}
+                          gridSize={size}
+                          pointSize={10}
+                          data={point}
+                          // color={`hsl(${
+                          //   (point.pos.x * point.pos.y) % 360
+                          // }, 100%, 50%)`}
+                          color="#444"
+                        />
+                      ))}
+                    </div>
                   ))}
                 </div>
-              ))}
-            </div>
-          )}
+              )}
 
-          {/* Render walls */}
-          <div id="walls" className="absolute left-0 top-0">
-            {walls.map((wall) => (
-              <Wall key={wall.id} data={wall} />
-            ))}
-          </div>
+              {/* Render walls */}
+              <div id="walls" className="absolute left-0 top-0">
+                {walls.map((wall) => (
+                  <Wall key={wall.id} data={wall} />
+                ))}
+              </div>
+            </>
+          )}
         </Suspense>
       </div>
     </div>

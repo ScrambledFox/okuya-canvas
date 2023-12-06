@@ -53,9 +53,6 @@ export const useEditorState = create<EditorState>((set, get) => ({
   resetTiles: () => set({ tiles: [] }),
 
   addTileFlag(tile, flag) {
-    console.log(
-      "Adding flag " + flag + " to tile " + tile.pos.x + ", " + tile.pos.y
-    );
     const newTiles = get().tiles;
     newTiles[tile.pos.x][tile.pos.y].flags |= flag;
     set({ tiles: newTiles });

@@ -1,7 +1,7 @@
-import { useEditorState } from "@/state/editor/editorState";
 import { useSelectToolState } from "@/state/editor/tools/selectToolState";
 import { useToolState } from "@/state/editor/tools/toolState";
 import { GridTile, TileFlags } from "@/types/tiles";
+import { doFloodFill } from "@/util/tile/floodfill";
 import React from "react";
 
 interface TileProps {
@@ -52,48 +52,18 @@ const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
     setHover(false);
   };
 
-  const doFloodFill = () => {
-    const tiles = useEditorState.getState().tiles;
-    const floodFill = (x: number, y: number) => {
-      if (
-        x < 0 ||
-        x >= tiles.length ||
-        y < 0 ||
-        y >= tiles[0].length ||
-        tiles[x][y].flags & TileFlags.Flooded
-      ) {
-        return;
-      }
-
-      tiles[x][y].flags |= TileFlags.Flooded;
-
-      // Stop if we hit a wall
-      if (tiles[x][y].flags & TileFlags.Wall) {
-        return;
-      }
-
-      floodFill(x + 1, y);
-      floodFill(x - 1, y);
-      floodFill(x, y + 1);
-      floodFill(x, y - 1);
-    };
-
-    floodFill(data.pos.x, data.pos.y);
-
-    useEditorState.getState().setTiles(tiles);
-  };
-
   const onMouseDown = () => {
     const selectedTool = useToolState.getState().selectedTool;
 
     switch (selectedTool) {
       case "select":
+      case "direct-select":
         if (useSelectToolState.getState().getHasSelected()) {
           useSelectToolState.getState().deselect();
         }
         break;
       case "dev-floodfill":
-        doFloodFill();
+        doFloodFill(data);
         break;
       default:
         break;

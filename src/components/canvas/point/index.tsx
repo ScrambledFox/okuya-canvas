@@ -62,7 +62,6 @@ const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
           if (!getIsValidLineEndPoint(data.pos)) return;
 
           // Okay continue
-          console.log("create wall");
           useWallToolState
             .getState()
             .createWall(useWallToolState.getState().lineStart!, {

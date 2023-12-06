@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-import { Wall as WallType } from "@/types/inter";
+import {
+  WallSegment as WallSegmentType,
+  Wall as WallType,
+} from "@/types/inter";
 import { useEditorState } from "@/state/editor/editorState";
 import { useToolState } from "@/state/editor/tools/toolState";
 import { useSelectToolState } from "@/state/editor/tools/selectToolState";
 import { useWallToolState } from "@/state/editor/tools/wallToolState";
+import { getSegmentsOfWall } from "@/util/wall/walls";
+import WallSegment from "./wallSegment";
 
 const Wall = ({ data }: { data: WallType }) => {
   const selectedTool = useToolState((state) => state.selectedTool);
@@ -14,6 +19,12 @@ const Wall = ({ data }: { data: WallType }) => {
   const selected = useSelectToolState(
     (state) => state.selectedObject === data.id
   );
+
+  const [segments, setSegments] = useState<WallSegmentType[]>([]);
+
+  useEffect(() => {
+    setSegments(getSegmentsOfWall(data));
+  }, [data]);
 
   useEffect(() => {
     const onKeyUp = (e: any) => {
@@ -51,23 +62,19 @@ const Wall = ({ data }: { data: WallType }) => {
   return (
     // Render a line between the two points
     <>
-      <svg
-        className="absolute z-10 overflow-visible pointer-events-none select-none"
-        style={style}
-      >
-        <line
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-          onMouseDown={onMouseDown}
-          className=" pointer-events-auto select-all hover:cursor-pointer"
-          style={style}
-          x1={data.start.x * tileSize}
-          y1={data.start.y * tileSize}
-          x2={data.end.x * tileSize}
-          y2={data.end.y * tileSize}
-          stroke="#fff"
-        />
-      </svg>
+      {/* Draw Segments */}
+      <div id={"segments-" + data.id}>
+        {segments.map((segment, i) => (
+          <WallSegment
+            key={i}
+            start={segment.start}
+            end={segment.end}
+            id={segment.id}
+            wallId={data.id}
+          />
+        ))}
+      </div>
+
       <h2
         className="absolute z-50 pointer-events-none select-none"
         style={{

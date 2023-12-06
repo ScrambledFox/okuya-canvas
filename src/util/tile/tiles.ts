@@ -1,6 +1,15 @@
 import { useEditorState } from "@/state/editor/editorState";
 import { Wall } from "@/types/inter";
-import { GridTile as Tile, TileCoord } from "@/types/tiles";
+import { GridTile, GridTile as Tile, TileCoord } from "@/types/tiles";
+
+export const transposedGridTiles = (tiles: GridTile[][]) => {
+  const width = tiles[0].length;
+  const height = tiles.length;
+  const transposedGrid = Array.from({ length: width }, (_, x) =>
+    Array.from({ length: height }, (_, y) => tiles[y][x])
+  );
+  return transposedGrid;
+};
 
 export const getTileAtCoord = (x: number, y: number) => {
   const gridSize = useEditorState.getState().gridSize;

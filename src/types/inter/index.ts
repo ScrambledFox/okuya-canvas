@@ -1,6 +1,6 @@
 import { PointCoord } from "../tiles";
 
-export type InterType = "wall" | "door" | "window";
+export type InterType = "wall" | "wallSegment" | "door" | "window";
 
 export type GridInter = {
   start: PointCoord;
@@ -10,6 +10,8 @@ export type GridInter = {
 };
 
 // Wall type to store wall data that inherits from GridInter
-export type Wall = GridInter & {
-  type: "wall";
+export type Wall = GridInter & {};
+
+export type WallSegment = GridInter & {
+  wallId: string;
 };

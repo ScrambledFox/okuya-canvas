@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Grid from "./grid";
-import { useEditorState } from "@/state/editor/editorState";
+import { useEditorState } from "@/state/editorState";
 
 function Canvas(props: any) {
   const gridSize = useEditorState((state) => state.gridSize);

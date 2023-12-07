@@ -4,18 +4,19 @@ import {
   WallSegment as WallSegmentType,
   Wall as WallType,
 } from "@/types/inter";
-import { useEditorState } from "@/state/editor/editorState";
-import { useToolState } from "@/state/editor/tools/toolState";
-import { useSelectToolState } from "@/state/editor/tools/selectToolState";
-import { useWallToolState } from "@/state/editor/tools/wallToolState";
+import { useEditorState } from "@/state/editorState";
+import { useToolState } from "@/state/tools/toolState";
+import { useSelectToolState } from "@/state/tools/selectToolState";
+import { useWallToolState } from "@/state/tools/wallToolState";
 import { getSegmentsOfWall } from "@/util/wall/walls";
 import WallSegment from "./wallSegment";
+import { Vector2d } from "@/util/points/points";
+import { gridToMeter } from "@/util/coords/coords";
 
 const Wall = ({ data }: { data: WallType }) => {
   const selectedTool = useToolState((state) => state.selectedTool);
   const tileSize = useEditorState((state) => state.tileSize);
 
-  const [hover, setHover] = useState(false);
   const selected = useSelectToolState(
     (state) => state.selectedObject === data.id
   );
@@ -25,39 +26,6 @@ const Wall = ({ data }: { data: WallType }) => {
   useEffect(() => {
     setSegments(getSegmentsOfWall(data));
   }, [data]);
-
-  useEffect(() => {
-    const onKeyUp = (e: any) => {
-      if (!selected) return;
-
-      if (e.key === "Delete") {
-        useWallToolState.getState().removeWall(data.id);
-      }
-    };
-
-    window.addEventListener("keydown", onKeyUp);
-
-    return () => {
-      window.removeEventListener("keydown", onKeyUp);
-    };
-  });
-
-  const onMouseEnter = () => {
-    setHover(true);
-  };
-
-  const onMouseLeave = () => {
-    setHover(false);
-  };
-
-  const onMouseDown = () => {
-    if (selectedTool === "select") {
-      useSelectToolState.getState().select(data.id);
-    }
-  };
-  const style = {
-    strokeWidth: hover || selected ? "8" : "4",
-  };
 
   return (
     // Render a line between the two points
@@ -84,12 +52,7 @@ const Wall = ({ data }: { data: WallType }) => {
         id="draw-line"
       >
         {/* Calculate length of wall in meters */}
-        {(
-          Math.sqrt(
-            Math.pow(data.start.x - data.end.x, 2) +
-              Math.pow(data.start.y - data.end.y, 2)
-          ) / 2
-        )
+        {(Vector2d.distanceBetween(data.start, data.end) * gridToMeter)
           .toFixed(2)
           .toString()}
         m

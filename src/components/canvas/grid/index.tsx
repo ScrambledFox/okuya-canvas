@@ -1,14 +1,15 @@
 import React, { Suspense, useEffect } from "react";
 
-import { useToolState } from "@/state/editor/tools/toolState";
+import { useToolState } from "@/state/tools/toolState";
 import { GridPoint, GridTile } from "@/types/tiles";
 import { v4 as uuidv4 } from "uuid";
 
 import Tile from "../tile";
 import Point from "../point";
 import Wall from "../house/wall";
-import { useEditorState } from "@/state/editor/editorState";
+import { useEditorState } from "@/state/editorState";
 import LoadingElement from "@/components/loading";
+import Door from "../house/door";
 
 interface GridProps {
   width: number;
@@ -29,6 +30,10 @@ const Grid = ({ width, height, size }: GridProps) => {
   ]);
   const walls = useEditorState((state) => state.walls);
 
+  const wallPoints = useEditorState((state) => state.wallPoints);
+
+  const doors = useEditorState((state) => state.doors);
+
   useEffect(() => {
     setTiles(
       Array.from({ length: height }, (i, y) =>
@@ -48,6 +53,7 @@ const Grid = ({ width, height, size }: GridProps) => {
           return {
             pos: { x: x, y: y },
             id: uuidv4(),
+            col: "#444",
           } as GridPoint;
         })
       )
@@ -90,13 +96,25 @@ const Grid = ({ width, height, size }: GridProps) => {
                           gridSize={size}
                           pointSize={10}
                           data={point}
-                          // color={`hsl(${
-                          //   (point.pos.x * point.pos.y) % 360
-                          // }, 100%, 50%)`}
-                          color="#444"
+                          colourOverride="#444"
                         />
                       ))}
                     </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Render wallPoints for door tool */}
+              {selectedTool === "door" && (
+                <div id="points" className="absolute left-0 top-0">
+                  {wallPoints.map((point, i) => (
+                    <Point
+                      key={i}
+                      gridSize={size}
+                      pointSize={10}
+                      data={point}
+                      colourOverride="#444"
+                    />
                   ))}
                 </div>
               )}
@@ -105,6 +123,13 @@ const Grid = ({ width, height, size }: GridProps) => {
               <div id="walls" className="absolute left-0 top-0">
                 {walls.map((wall) => (
                   <Wall key={wall.id} data={wall} />
+                ))}
+              </div>
+
+              {/* Render doors */}
+              <div id="doors" className="absolute left-0 top-0">
+                {doors.map((door) => (
+                  <Door key={door.id} data={door} />
                 ))}
               </div>
             </>

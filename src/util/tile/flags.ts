@@ -1,4 +1,4 @@
-import { useEditorState } from "@/state/editor/editorState";
+import { useEditorState } from "@/state/editorState";
 import { GridTile } from "@/types/tiles";
 
 export const resetFlagsOfTiles = (tiles: GridTile[][]) => {

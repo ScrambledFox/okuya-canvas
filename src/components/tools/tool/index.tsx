@@ -1,6 +1,6 @@
 import SelectableIcon from "@/components/ui/selectableIcon";
-import { useSelectToolState } from "@/state/editor/tools/selectToolState";
-import { useToolState } from "@/state/editor/tools/toolState";
+import { useSelectToolState } from "@/state/tools/selectToolState";
+import { useToolState } from "@/state/tools/toolState";
 import { ToolType } from "@/types/tools";
 import React, { ElementType, ReactNode } from "react";
 
@@ -8,6 +8,7 @@ interface ToolIconProps {
   icon: ElementType;
   name: string;
   toolType: ToolType;
+  actionOnSelect?: () => void;
 }
 
 const ToolIcon = (props: ToolIconProps) => {
@@ -16,6 +17,8 @@ const ToolIcon = (props: ToolIconProps) => {
     useToolState((state) => state.selectedTool) === props.toolType;
 
   const onSelect = () => {
+    if (props.actionOnSelect !== undefined) props.actionOnSelect();
+
     useSelectToolState.getState().deselect();
     useToolState.getState().selectTool(props.toolType);
   };

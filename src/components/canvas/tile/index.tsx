@@ -1,7 +1,7 @@
-import { useEditorState } from "@/state/editor/editorState";
-import { useFilterState } from "@/state/editor/filters/filterState";
-import { useSelectToolState } from "@/state/editor/tools/selectToolState";
-import { useToolState } from "@/state/editor/tools/toolState";
+import { useEditorState } from "@/state/editorState";
+import { useFilterState } from "@/state/filters/filterState";
+import { useSelectToolState } from "@/state/tools/selectToolState";
+import { useToolState } from "@/state/tools/toolState";
 import { FilterFlags } from "@/types/filters";
 import { GridTile, TileFlags } from "@/types/tiles";
 import { doFloodFill } from "@/util/tile/floodfill";

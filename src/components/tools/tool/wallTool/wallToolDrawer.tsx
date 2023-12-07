@@ -1,32 +1,16 @@
-import DragLine from "@/components/canvas/dragLine";
-import { useWallToolState } from "@/state/editor/tools/wallToolState";
-import React, { useEffect } from "react";
+import React from "react";
+
+import LineTool from "../lineTool/lineTool";
+import { useWallToolState } from "@/state/tools/wallToolState";
 
 const WallToolDrawer = () => {
-  const isDragging = useWallToolState((state) => state.lineStart != null);
+  const start = useWallToolState((state) => state.lineStart);
 
-  useEffect(() => {
-    const onKeyUp = (e: any) => {
-      if (e.key === "Escape") {
-        useWallToolState.getState().cancelLine();
-      }
-    };
+  const onCancelLine = () => {
+    useWallToolState.getState().cancelLine();
+  };
 
-    window.addEventListener("keydown", onKeyUp);
-
-    return () => {
-      window.removeEventListener("keydown", onKeyUp);
-    };
-  });
-
-  return (
-    <div
-      className="absolute top-0 left-0 w-screen h-screen z-100 pointer-events-none select-none"
-      id="draw-line"
-    >
-      {isDragging && <DragLine />}
-    </div>
-  );
+  return <LineTool start={start} onCancel={onCancelLine} />;
 };
 
 export default WallToolDrawer;

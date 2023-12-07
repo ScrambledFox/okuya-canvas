@@ -1,11 +1,6 @@
-import { PointCoord } from "../tiles";
-
-export type ScreenCoord = {
-  x: number;
-  y: number;
-};
+import { Vector2d } from "@/util/points/points";
 
 export type DragPoint = {
-  pointCoord: PointCoord;
-  screenCoord: ScreenCoord;
+  pointCoord: Vector2d;
+  screenCoord: Vector2d;
 };

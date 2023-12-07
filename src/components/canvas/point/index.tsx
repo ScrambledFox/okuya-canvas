@@ -1,43 +1,29 @@
-import React, { useEffect } from "react";
+import React, { MouseEvent } from "react";
+
 import { GridPoint } from "@/types/tiles";
-import { useWallToolState } from "@/state/editor/tools/wallToolState";
-import { useToolState } from "@/state/editor/tools/toolState";
+import { useWallToolState } from "@/state/tools/wallToolState";
+import { useToolState } from "@/state/tools/toolState";
+import { useDoorToolState } from "@/state/tools/doorToolState";
+import { endWallPlacement, startWallPlacement } from "@/util/wall/walls";
+import { startDoorPlacement, tryCreateDoor } from "@/util/door/doors";
 
 interface PointProps {
   data: GridPoint;
   gridSize: number;
   pointSize: number;
-  color: string;
+  colourOverride: string;
 }
 
-const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
+const Point = ({ data, gridSize, pointSize, colourOverride }: PointProps) => {
   const [hover, setHover] = React.useState(false);
 
-  const getIsValidLineEndPoint = useWallToolState(
-    (state) => state.getIsValidLineEndPoint
-  );
-
   const style = {
-    backgroundColor: hover
-      ? useWallToolState.getState().lineStart === null
-        ? "white"
-        : getIsValidLineEndPoint(data.pos)
-        ? "white"
-        : "red"
-      : color,
+    backgroundColor: hover ? "white" : colourOverride,
     left: data.pos.x * gridSize - pointSize / 2 - (hover ? pointSize / 4 : 0),
     top: data.pos.y * gridSize - pointSize / 2 - (hover ? pointSize / 4 : 0),
     width: pointSize + (hover ? pointSize / 2 : 0),
     height: pointSize + (hover ? pointSize / 2 : 0),
     borderRadius: "50%",
-  };
-
-  const startLine = (screenX: number, screenY: number) => {
-    console.log("start line");
-    useWallToolState.getState().setLineStart({
-      pointCoord: data.pos,
-      screenCoord: { x: screenX, y: screenY },
-    });
   };
 
   const onMouseEnter = () => {
@@ -48,31 +34,45 @@ const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
     setHover(false);
   };
 
-  const onMouseMove = (e: any) => {};
-
-  const onMouseDown = (e: any) => {
+  const onMouseDown = (e: MouseEvent) => {
     const selectedTool = useToolState.getState().selectedTool;
 
     switch (selectedTool) {
       case "wall":
         if (useWallToolState.getState().lineStart === null) {
-          startLine(e.clientX, e.clientY);
+          startWallPlacement({
+            pointCoord: data.pos,
+            screenCoord: { x: e.clientX, y: e.clientY },
+          });
         } else {
-          // check if valid
-          if (!getIsValidLineEndPoint(data.pos)) return;
+          if (!useWallToolState.getState().getIsValidLineEndPoint(data.pos))
+            return;
 
-          // Okay continue
-          useWallToolState
-            .getState()
-            .createWall(useWallToolState.getState().lineStart!, {
-              pointCoord: data.pos,
-              screenCoord: { x: e.clientX, y: e.clientY },
-            });
+          endWallPlacement({
+            pointCoord: data.pos,
+            screenCoord: { x: e.clientX, y: e.clientY },
+          });
 
           // Reset the line start to new point
-          startLine(e.clientX, e.clientY);
+          startWallPlacement({
+            pointCoord: data.pos,
+            screenCoord: { x: e.clientX, y: e.clientY },
+          });
 
           // TODO: if line end crosses a line, cancel new line making.
+        }
+        break;
+      case "door":
+        if (useDoorToolState.getState().lineStart === null) {
+          console.log("start door");
+
+          startDoorPlacement({
+            pointCoord: data.pos,
+            screenCoord: { x: e.clientX, y: e.clientY },
+          });
+        } else {
+          useDoorToolState.getState().setLineEndTarget(data.pos);
+          tryCreateDoor();
         }
         break;
       default:
@@ -85,7 +85,6 @@ const Point = ({ data, gridSize, pointSize, color }: PointProps) => {
       style={style}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onMouseMove={onMouseMove}
       onMouseDown={onMouseDown}
       className="absolute z-20"
     >

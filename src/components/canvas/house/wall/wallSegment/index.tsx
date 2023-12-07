@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useEditorState } from "@/state/editor/editorState";
-import { useToolState } from "@/state/editor/tools/toolState";
-import { useSelectToolState } from "@/state/editor/tools/selectToolState";
+import { useEditorState } from "@/state/editorState";
+import { useToolState } from "@/state/tools/toolState";
+import { useSelectToolState } from "@/state/tools/selectToolState";
 
 interface WallSegmentProps {
   wallId: string;

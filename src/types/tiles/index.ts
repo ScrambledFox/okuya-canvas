@@ -1,3 +1,5 @@
+import { Vector2d } from "@/util/points/points";
+
 // Type definitions for tile flags
 export enum TileFlags {
   None = 0,
@@ -6,25 +8,25 @@ export enum TileFlags {
   Window = 1 << 2,
   Flooded = 1 << 3,
 }
+
+// Tile Flag LUT
+export const TileFlagLUT = {
+  [TileFlags.None]: "None",
+  [TileFlags.Wall]: "Wall",
+  [TileFlags.Door]: "Door",
+  [TileFlags.Window]: "Window",
+  [TileFlags.Flooded]: "Flooded",
+};
+
 // Create tile type to store tile data
 export type GridTile = {
-  pos: TileCoord;
+  pos: Vector2d;
   id: string;
   color: string;
   flags: TileFlags;
 };
 
-export type TileCoord = {
-  x: number;
-  y: number;
-};
-
 export type GridPoint = {
-  pos: PointCoord;
+  pos: Vector2d;
   id: string;
-};
-
-export type PointCoord = {
-  x: number;
-  y: number;
 };

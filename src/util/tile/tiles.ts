@@ -1,6 +1,6 @@
-import { useEditorState } from "@/state/editor/editorState";
+import { useEditorState } from "@/state/editorState";
 import { Wall } from "@/types/inter";
-import { GridTile, GridTile as Tile, TileCoord } from "@/types/tiles";
+import { GridTile, GridTile as Tile } from "@/types/tiles";
 
 export const transposedGridTiles = (tiles: GridTile[][]) => {
   const width = tiles[0].length;

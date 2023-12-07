@@ -1,4 +1,4 @@
-import { useEditorState } from "@/state/editor/editorState";
+import { useEditorState } from "@/state/editorState";
 import { GridTile, TileFlags } from "@/types/tiles";
 
 const floodFill = (x: number, y: number, tiles: GridTile[][]) => {

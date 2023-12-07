@@ -1,7 +1,7 @@
 import { Wall } from "@/types/inter";
 import { GridPoint, GridTile, TileFlags } from "@/types/tiles";
 import { getTilesNextToWall } from "./tiles";
-import { useEditorState } from "@/state/editor/editorState";
+import { useEditorState } from "@/state/editorState";
 import { resetAllFlags, resetAllFlags as resetFlagsOfTiles } from "./flags";
 
 interface TileProcessingOptions {}

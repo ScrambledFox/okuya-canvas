@@ -3,7 +3,7 @@ import Container from "../ui/container";
 import FilterIcon from "./filter";
 
 import { MdFilter } from "react-icons/md";
-import { useFilterState } from "@/state/editor/filters/filterState";
+import { useFilterState } from "@/state/filters/filterState";
 
 const FilterDock = () => {
   const selected = useFilterState((state) => state.filter);

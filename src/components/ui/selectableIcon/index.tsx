@@ -1,5 +1,5 @@
-import { useSelectToolState } from "@/state/editor/tools/selectToolState";
-import { useToolState } from "@/state/editor/tools/toolState";
+import { useSelectToolState } from "@/state/tools/selectToolState";
+import { useToolState } from "@/state/tools/toolState";
 import { ToolType } from "@/types/tools";
 import React, { ElementType, ReactNode } from "react";
 

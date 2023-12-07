@@ -2,7 +2,7 @@ import React, { ElementType, use, useEffect, useState } from "react";
 
 import SelectableIcon from "@/components/ui/selectableIcon";
 import { FilterFlags } from "@/types/filters";
-import { useFilterState } from "@/state/editor/filters/filterState";
+import { useFilterState } from "@/state/filters/filterState";
 
 interface FilterIconProps {
   icon: ElementType;

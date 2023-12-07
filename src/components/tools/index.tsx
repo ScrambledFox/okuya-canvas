@@ -13,6 +13,10 @@ import { FaDev } from "react-icons/fa";
 import Container from "../ui/container";
 
 const ToolBar = () => {
+  const onDoorSelect = () => {
+    console.log("Door selected!");
+  };
+
   return (
     <Container className="top-2 left-2">
       <div className="flex flex-col justify-center text-center">
@@ -25,7 +29,12 @@ const ToolBar = () => {
         icon={TbPointerFilled}
       />
       <ToolIcon name="Wall" toolType="wall" icon={GiBrickWall} />
-      <ToolIcon name="Door" toolType="door" icon={FaDoorClosed} />
+      <ToolIcon
+        name="Door"
+        toolType="door"
+        actionOnSelect={onDoorSelect}
+        icon={FaDoorClosed}
+      />
       <ToolIcon name="Window" toolType="window" icon={TbWindow} />
       <ToolIcon name="Floodfill" toolType="dev-floodfill" icon={FaDev} />
     </Container>

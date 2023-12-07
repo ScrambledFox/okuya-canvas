@@ -4,9 +4,7 @@ import React, { useEffect } from "react";
 const SelectTool = () => {
   useEffect(() => {
     const onKeyUp = (e: any) => {
-      console.log(e.key);
       if (e.key === "Delete") {
-        console.log("delete");
         useSelectToolState.getState().deleteSelectedObject();
       }
     };

@@ -62,8 +62,12 @@ const Door = ({ data }: { data: DoorType }) => {
 
   return (
     perpendicular !== null && (
-      <svg className="absolute z-20 overflow-visible" style={style}>
+      <svg
+        className="absolute z-10 overflow-visible pointer-events-none select-none"
+        style={style}
+      >
         <path
+          className="pointer-events-auto select-all z-50"
           d={`M ${data.start.x * tileSize},${data.start.y * tileSize} ${
             perpendicular?.endPoint.x! * tileSize
           },${perpendicular?.endPoint.y! * tileSize} a${

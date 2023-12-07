@@ -13,9 +13,7 @@ import { FaDev } from "react-icons/fa";
 import Container from "../ui/container";
 
 const ToolBar = () => {
-  const onDoorSelect = () => {
-    console.log("Door selected!");
-  };
+  const onDoorSelect = () => {};
 
   return (
     <Container className="top-2 left-2">

@@ -4,7 +4,7 @@ import { useSelectToolState } from "@/state/tools/selectToolState";
 import { useToolState } from "@/state/tools/toolState";
 import { FilterFlags } from "@/types/filters";
 import { GridTile, TileFlags } from "@/types/tiles";
-import { doFloodFill } from "@/util/tile/floodfill";
+import { doFloodFill } from "@/util/tiles/floodfill";
 import Color from "color";
 import React, { useEffect } from "react";
 

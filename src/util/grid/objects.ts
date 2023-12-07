@@ -1,7 +1,6 @@
 import { useEditorState } from "@/state/editorState";
 
 export const handleDeleteObjectWithId = (id: string | null) => {
-  console.log("Deleting object with id: " + id);
   if (id === null) return;
 
   const idDictionary = useEditorState.getState().idDictionary;
@@ -18,6 +17,6 @@ export const handleDeleteObjectWithId = (id: string | null) => {
     const newDoors = doors.filter((door) => door.id !== id);
     useEditorState.getState().setDoors(newDoors);
   } else {
-    console.log("Unknown object type: " + object.type);
+    console.error("Unknown object type: " + object.type);
   }
 };

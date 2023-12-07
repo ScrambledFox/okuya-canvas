@@ -4,7 +4,7 @@ import { GridPoint } from "@/types/tiles";
 import { useWallToolState } from "@/state/tools/wallToolState";
 import { useToolState } from "@/state/tools/toolState";
 import { useDoorToolState } from "@/state/tools/doorToolState";
-import { endWallPlacement, startWallPlacement } from "@/util/wall/walls";
+import { endWallPlacement, startWallPlacement } from "@/util/walls/walls";
 import { startDoorPlacement, tryCreateDoor } from "@/util/door/doors";
 
 interface PointProps {
@@ -74,6 +74,8 @@ const Point = ({ data, gridSize, pointSize, colourOverride }: PointProps) => {
           useDoorToolState.getState().setLineEndTarget(data.pos);
           tryCreateDoor();
         }
+        break;
+      case "window":
         break;
       default:
         break;

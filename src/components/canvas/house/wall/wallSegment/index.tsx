@@ -52,6 +52,8 @@ const WallSegment = (data: WallSegmentProps) => {
       case "direct-select":
         useSelectToolState.getState().select(data.id);
         break;
+      case "window":
+        break;
     }
   };
 

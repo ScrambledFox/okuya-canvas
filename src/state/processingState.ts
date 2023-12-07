@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { useEditorState } from "./editorState";
-import { processTiles } from "@/util/tile/tileProcessing";
-import { getAllWallPoints } from "@/util/wall/walls";
+import { processTiles } from "@/util/tiles/tileProcessing";
+import { getAllWallPoints } from "@/util/walls/walls";
 import { getPointsAtCoords } from "@/util/points/points";
 
 export type ProcessingState = {

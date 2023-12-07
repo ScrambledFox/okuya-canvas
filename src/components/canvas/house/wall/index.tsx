@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import {
-  WallSegment as WallSegmentType,
-  Wall as WallType,
-} from "@/types/inter";
+import { Wall as WallType } from "@/types/inter";
 import { useEditorState } from "@/state/editorState";
 import { useToolState } from "@/state/tools/toolState";
 import { useSelectToolState } from "@/state/tools/selectToolState";
-import { useWallToolState } from "@/state/tools/wallToolState";
-import { getSegmentsOfWall } from "@/util/wall/walls";
 import WallSegment from "./wallSegment";
 import { Vector2d } from "@/util/points/points";
 import { gridToMeter } from "@/util/coords/coords";
@@ -21,18 +16,12 @@ const Wall = ({ data }: { data: WallType }) => {
     (state) => state.selectedObject === data.id
   );
 
-  const [segments, setSegments] = useState<WallSegmentType[]>([]);
-
-  useEffect(() => {
-    setSegments(getSegmentsOfWall(data));
-  }, [data]);
-
   return (
     // Render a line between the two points
     <>
       {/* Draw Segments */}
       <div id={"segments-" + data.id}>
-        {segments.map((segment, i) => (
+        {data.segments.map((segment, i) => (
           <WallSegment
             key={i}
             start={segment.start}

@@ -104,8 +104,8 @@ const Grid = ({ width, height, size }: GridProps) => {
                 </div>
               )}
 
-              {/* Render wallPoints for door tool */}
-              {selectedTool === "door" && (
+              {/* Render wallPoints for door/window tool */}
+              {(selectedTool === "door" || selectedTool === "window") && (
                 <div id="points" className="absolute left-0 top-0">
                   {wallPoints.map((point, i) => (
                     <Point

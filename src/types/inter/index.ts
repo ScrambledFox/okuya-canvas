@@ -9,11 +9,6 @@ export type GridInter = {
   type: InterType;
 };
 
-// Wall type to store wall data that inherits from GridInter
-export type Wall = GridInter & {
-  childPoints: Set<Vector2d>;
-};
-
 export type WallSegment = GridInter & {
   wallId: string;
   hasDoor: boolean;
@@ -22,4 +17,10 @@ export type WallSegment = GridInter & {
 
 export type Door = GridInter & {
   walls: string[];
+};
+
+// Wall type to store wall data that inherits from GridInter
+export type Wall = GridInter & {
+  segments: WallSegment[];
+  childPoints: Set<Vector2d>;
 };

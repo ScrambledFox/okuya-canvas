@@ -7,7 +7,10 @@ import { DragPoint } from "@/types/grid";
 import { v4 as uuidv4 } from "uuid";
 import { useEditorState } from "../editorState";
 import { Vector2d } from "@/util/points/points";
-import { getWallPointsFromCoords } from "@/util/wall/walls";
+import {
+  generateWallSegments,
+  getWallPointsFromCoords,
+} from "@/util/walls/walls";
 
 export type WallToolState = {
   lineStart: DragPoint | null;
@@ -20,11 +23,13 @@ export type WallToolState = {
 };
 
 const createWall = (start: DragPoint, end: DragPoint) => {
+  const id = uuidv4();
   const wall: Wall = {
-    id: uuidv4(),
+    id: id,
     start: start.pointCoord,
     end: end.pointCoord,
     type: "wall",
+    segments: generateWallSegments(id, start.pointCoord, end.pointCoord),
     childPoints: getWallPointsFromCoords(start.pointCoord, end.pointCoord),
   };
 

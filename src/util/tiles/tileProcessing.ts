@@ -1,8 +1,8 @@
 import { Wall } from "@/types/inter";
 import { GridPoint, GridTile, TileFlags } from "@/types/tiles";
-import { getTilesNextToWall } from "./tiles";
 import { useEditorState } from "@/state/editorState";
 import { resetAllFlags, resetAllFlags as resetFlagsOfTiles } from "./flags";
+import { getWallSegmentTiles } from "./tiles";
 
 interface TileProcessingOptions {}
 
@@ -14,12 +14,13 @@ export const processTiles = (
 ) => {
   resetAllFlags();
 
-  Array.from(Array(walls.length).keys()).forEach((x) => {
-    const wall = walls[x];
-    const wallTiles = getTilesNextToWall(wall);
-
-    wallTiles.forEach((tile) => {
-      useEditorState.getState().addTileFlag(tile, TileFlags.Wall);
+  walls.forEach((wall) => {
+    wall.segments.forEach((segment) => {
+      const tiles = getWallSegmentTiles(segment);
+      const flag = segment.hasWindow ? TileFlags.Window : TileFlags.Wall;
+      tiles.forEach((tile) => {
+        useEditorState.getState().addTileFlag(tile, flag);
+      });
     });
   });
 };

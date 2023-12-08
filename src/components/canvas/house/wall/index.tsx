@@ -28,6 +28,7 @@ const Wall = ({ data }: { data: WallType }) => {
             end={segment.end}
             id={segment.id}
             wallId={data.id}
+            hasWindow={segment.hasWindow}
           />
         ))}
       </div>

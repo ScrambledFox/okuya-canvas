@@ -70,6 +70,19 @@ export class Line {
     return new Line(this.x1, this.y1, x2, y2);
   }
 
+  // Move the whole line perpendicular to its direction vector with the given amount.
+  public sideStep(amount: number): Line {
+    const perp = this.perpendicularLine;
+    const norm = perp.dirVectorNormilized;
+    const sideStep = Vector2d.multiply(norm, amount);
+    return new Line(
+      this.x1 + sideStep.x,
+      this.y1 + sideStep.y,
+      this.x2 + sideStep.x,
+      this.y2 + sideStep.y
+    );
+  }
+
   public get perpendicularLine(): Line {
     return this.rotated(Math.PI / 2);
   }

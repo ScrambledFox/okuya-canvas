@@ -1,4 +1,5 @@
 import { DragPoint } from "@/types/grid";
+import { toggleWindowState } from "@/util/windows/windows";
 import { create } from "zustand";
 
 export type WindowToolState = {
@@ -7,6 +8,8 @@ export type WindowToolState = {
   cancelLine: () => void;
   tryCreateWindow: () => void;
   getIsValidLineEndPoint: (coord: DragPoint) => boolean;
+
+  toggleWindow: (segmentId: string) => void;
 };
 
 export const useWindowToolState = create<WindowToolState>((set, get) => ({
@@ -22,5 +25,10 @@ export const useWindowToolState = create<WindowToolState>((set, get) => ({
   },
   getIsValidLineEndPoint: (coord) => {
     return false;
+  },
+
+  // Toggle a window on a wall segment with id.
+  toggleWindow: (segmentId) => {
+    toggleWindowState(segmentId);
   },
 }));

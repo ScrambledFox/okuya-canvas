@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { useEditorState } from "@/state/editorState";
 import { useToolState } from "@/state/tools/toolState";
 import { useSelectToolState } from "@/state/tools/selectToolState";
+import WindowGraphics from "../../window";
+import { useWindowToolState } from "@/state/tools/windowToolState";
 
 interface WallSegmentProps {
   wallId: string;
   id: string;
   start: { x: number; y: number };
   end: { x: number; y: number };
+  hasWindow: boolean;
 }
 
 const WallSegment = (data: WallSegmentProps) => {
@@ -37,6 +40,9 @@ const WallSegment = (data: WallSegmentProps) => {
       case "direct-select":
         useSelectToolState.getState().setHoveredObject(data.id);
         break;
+      case "window":
+        useSelectToolState.getState().setHoveredObject(data.id);
+        break;
     }
   };
 
@@ -53,11 +59,12 @@ const WallSegment = (data: WallSegmentProps) => {
         useSelectToolState.getState().select(data.id);
         break;
       case "window":
+        useWindowToolState.getState().toggleWindow(data.id);
         break;
     }
   };
 
-  const style = {
+  const wallStyle = {
     strokeWidth:
       isHovered || parentIsHovered || isSelected || parentIsSelected
         ? "8"
@@ -68,6 +75,53 @@ const WallSegment = (data: WallSegmentProps) => {
         : "default",
   };
 
+  const windowStyle = {
+    strokeWidth:
+      isHovered || parentIsHovered || isSelected || parentIsSelected
+        ? "2"
+        : "1",
+    cursor:
+      (selectedTool === "direct-select" && isHovered) || parentIsHovered
+        ? "pointer"
+        : "default",
+  };
+
+  return data.hasWindow ? (
+    <WindowGraphics
+      style={windowStyle}
+      data={data}
+      tileSize={tileSize}
+      onMouseDown={onMouseDown}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    />
+  ) : (
+    <WallGraphics
+      style={wallStyle}
+      data={data}
+      tileSize={tileSize}
+      onMouseDown={onMouseDown}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    />
+  );
+};
+
+const WallGraphics = ({
+  style,
+  data,
+  tileSize,
+  onMouseEnter,
+  onMouseLeave,
+  onMouseDown,
+}: {
+  style: any;
+  data: any;
+  tileSize: number;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  onMouseDown: () => void;
+}) => {
   return (
     <svg
       className="absolute z-10 overflow-visible pointer-events-none select-none"

@@ -6,6 +6,11 @@ import { useToolState } from "@/state/tools/toolState";
 import { useDoorToolState } from "@/state/tools/doorToolState";
 import { endWallPlacement, startWallPlacement } from "@/util/walls/walls";
 import { startDoorPlacement, tryCreateDoor } from "@/util/door/doors";
+import { useWindowToolState } from "@/state/tools/windowToolState";
+import {
+  convertWindowsInRange,
+  startWindowConversionLine,
+} from "@/util/windows/windows";
 
 interface PointProps {
   data: GridPoint;
@@ -74,6 +79,18 @@ const Point = ({ data, gridSize, pointSize, colourOverride }: PointProps) => {
         }
         break;
       case "window":
+        if (useWindowToolState.getState().lineStart === null) {
+          startWindowConversionLine({
+            pointCoord: data.pos,
+            screenCoord: { x: e.clientX, y: e.clientY },
+          });
+        } else {
+          convertWindowsInRange(
+            useWindowToolState.getState().lineStart?.pointCoord!,
+            data.pos
+          );
+          useWindowToolState.getState().cancelLine();
+        }
         break;
       default:
         break;

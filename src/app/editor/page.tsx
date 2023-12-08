@@ -10,6 +10,7 @@ import SelectTool from "@/components/tools/tool/selectTool";
 import WallToolDrawer from "@/components/tools/tool/wallTool/wallToolDrawer";
 import Version from "@/components/version";
 import { useToolState } from "@/state/tools/toolState";
+import WindowToolDrawer from "@/components/tools/tool/windowTool/windowToolDrawer";
 
 const Canvas = dynamic(() => import("@/components/canvas"), {
   ssr: false,
@@ -53,6 +54,7 @@ export default function Page() {
         <SelectTool />
         <WallToolDrawer />
         <DoorToolDrawer />
+        <WindowToolDrawer />
       </div>
 
       <Version />

@@ -1,5 +1,6 @@
 import { useEditorState } from "@/state/editorState";
 import { Line } from "../line/lines";
+import { Vector2d } from "../points/points";
 
 export const gridToMeter = 0.5;
 export const meterToGrid = 1 / gridToMeter;
@@ -43,4 +44,38 @@ export const getManhattanLine = (
 
   const newLength = Math.max(Math.min(line.length, maxLength), minLength);
   return line.getWithLength(newLength);
+};
+
+export const getCoordsInBetween = (
+  start: Vector2d,
+  end: Vector2d
+): Set<Vector2d> => {
+  const coords: Set<Vector2d> = new Set();
+
+  // Calculate the differences between start and end coordinates
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+
+  // Determine the number of steps based on the maximum difference
+  const steps = Math.max(Math.abs(dx), Math.abs(dy));
+
+  // Calculate the incremental change in x and y for each step
+  const incrementX = dx / steps;
+  const incrementY = dy / steps;
+
+  // Generate coordinates for each step
+  for (let i = 0; i <= steps; i++) {
+    const x = start.x + i * incrementX;
+    const y = start.y + i * incrementY;
+    coords.add({ x, y });
+  }
+
+  return coords;
+};
+
+export const setHasCoord = (
+  coords: Set<Vector2d>,
+  coord: Vector2d
+): boolean => {
+  return [...coords].some((c) => c.x === coord.x && c.y === coord.y);
 };

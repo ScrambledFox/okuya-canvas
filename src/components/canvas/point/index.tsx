@@ -64,8 +64,6 @@ const Point = ({ data, gridSize, pointSize, colourOverride }: PointProps) => {
         break;
       case "door":
         if (useDoorToolState.getState().lineStart === null) {
-          console.log("start door");
-
           startDoorPlacement({
             pointCoord: data.pos,
             screenCoord: { x: e.clientX, y: e.clientY },

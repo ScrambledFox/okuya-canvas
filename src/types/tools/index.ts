@@ -1,1 +1,8 @@
-export type ToolType = "select" | "direct-select" | "wall" | "door" | "window" | "dev-floodfill";
+export type ToolType =
+  | "pan"
+  | "select"
+  | "direct-select"
+  | "wall"
+  | "door"
+  | "window"
+  | "dev-floodfill";

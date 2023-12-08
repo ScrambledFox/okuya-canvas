@@ -61,7 +61,7 @@ const Grid = ({ width, height, size }: GridProps) => {
   }, [width, height, setTiles, setPoints]);
 
   return (
-    <div className="flex flex-col min-h-screen justify-center items-center text-center">
+    <div className="fixed flex flex-col h-screen w-screen justify-center items-center text-center">
       <div className="self-center items-center fixed">
         <Suspense fallback={<LoadingElement />}>
           {/* Render Tiles */}

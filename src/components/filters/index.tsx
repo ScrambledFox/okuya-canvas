@@ -9,8 +9,8 @@ const FilterDock = () => {
   const selected = useFilterState((state) => state.filter);
 
   return (
-    <Container className="top-2 right-2">
-      <div className="flex flex-col justify-center text-center">
+    <Container className="right-0">
+      <div className="justify-center text-center">
         <h1 className="text-neutral-100 text-lg font-semibold">Filters</h1>
       </div>
       <FilterIcon name="None" filter={FilterFlags.None} icon={MdFilter} />

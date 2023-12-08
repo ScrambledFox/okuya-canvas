@@ -10,7 +10,7 @@ const Container = ({
 }) => {
   return (
     <div
-      className={`fixed bg-neutral-950 p-2 border border-neutral-700 rounded-lg ${className}`}
+      className={`fixed bg-neutral-950 p-2 m-2 border border-neutral-700 rounded-lg ${className}`}
       {...props}
     >
       {children}

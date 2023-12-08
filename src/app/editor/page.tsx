@@ -1,14 +1,15 @@
 "use client";
+import { useEffect } from "react";
+import dynamic from "next/dynamic";
 
 import FilterDock from "@/components/filters";
+import { SaveLoadPanel } from "@/components/fs/layout";
 import ToolBar from "@/components/tools";
 import DoorToolDrawer from "@/components/tools/tool/doorTool/doorToolDrawer";
 import SelectTool from "@/components/tools/tool/selectTool";
 import WallToolDrawer from "@/components/tools/tool/wallTool/wallToolDrawer";
 import Version from "@/components/version";
 import { useToolState } from "@/state/tools/toolState";
-import dynamic from "next/dynamic";
-import { useEffect } from "react";
 
 const Canvas = dynamic(() => import("@/components/canvas"), {
   ssr: false,
@@ -28,7 +29,7 @@ export default function Page() {
   }, []);
 
   const onMouseDown = (e: any) => {
-    // HANDLED IN POINT NOW
+    // HANDLED IN POINT CLASS NOW
     //
     // if (selectedTool === "door") {
     //   // Check if placing door
@@ -41,12 +42,18 @@ export default function Page() {
     <div className="h-screen" onMouseDown={onMouseDown}>
       <Canvas />
 
-      <ToolBar />
-      <FilterDock />
+      <div id="panels">
+        <ToolBar />
+        {/* <FurniturePanel /> */}
+        <FilterDock />
+        <SaveLoadPanel />
+      </div>
 
-      <SelectTool />
-      <WallToolDrawer />
-      <DoorToolDrawer />
+      <div id="tools">
+        <SelectTool />
+        <WallToolDrawer />
+        <DoorToolDrawer />
+      </div>
 
       <Version />
     </div>

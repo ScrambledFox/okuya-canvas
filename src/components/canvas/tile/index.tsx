@@ -44,7 +44,7 @@ const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
       filter & FilterFlags.RuleAffected &&
       data.flags & TileFlags.RuleAffected
     )
-      colour = colour.mix(Color("#00f"), 0.25);
+      colour = colour.mix(Color("#0ff"), 0.25);
 
     if (
       filter & FilterFlags.FurnitureTest &&

@@ -49,6 +49,9 @@ const FurniturePiece = ({
   const moveFurniture = useFurnitureState((state) => state.moveFurniture);
   const rotateFurniture = useFurnitureState((state) => state.rotateFurniture);
 
+  const horizontalEven = recipe.width % 2 === 0;
+  const verticalEven = recipe.height % 2 === 0;
+
   const [score, setScore] = useState<Number>(0);
 
   useEffect(() => {
@@ -134,10 +137,26 @@ const FurniturePiece = ({
     width: recipe.width * tileSize,
     height: recipe.height * tileSize,
 
-    left: position.x * tileSize,
-    top: position.y * tileSize,
+    left:
+      position.x * tileSize +
+      (rotation % 2 === 0
+        ? horizontalEven
+          ? tileSize / 2
+          : 0
+        : !horizontalEven
+        ? tileSize / 2
+        : 0),
+    top:
+      position.y * tileSize +
+      (rotation % 2 === 0
+        ? verticalEven
+          ? tileSize / 2
+          : 0
+        : !verticalEven
+        ? tileSize / 2
+        : 0),
 
-    transformOrigin: "top left",
+    // transformOrigin: "top left",
     transform: `rotate(${rotation * 90}deg)`,
 
     border: selected ? "1px solid #f00" : "none",

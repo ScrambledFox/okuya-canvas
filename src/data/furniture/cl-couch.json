@@ -17,6 +17,9 @@
             },
             "x": {
                 "preferred": "free"
+            },
+            "y": {
+                "door-align": "not-allowed"
             }
         },
         "special": {}

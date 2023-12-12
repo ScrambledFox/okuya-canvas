@@ -37,7 +37,7 @@ const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
     if (filter & FilterFlags.Wall && data.flags & TileFlags.Wall)
       colour = colour.mix(Color("#fff"), 0.25);
 
-    if (filter & FilterFlags.Wall && data.flags & TileFlags.Window)
+    if (filter & FilterFlags.Window && data.flags & TileFlags.Window)
       colour = colour.mix(Color("#f0f"), 0.25);
 
     if (

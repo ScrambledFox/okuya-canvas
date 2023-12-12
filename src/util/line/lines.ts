@@ -1,3 +1,4 @@
+import { constants } from "buffer";
 import { Vector2d } from "../points/points";
 
 export class Line {
@@ -22,7 +23,9 @@ export class Line {
   }
 
   public get dirVector(): Vector2d {
-    return { x: this.x2 - this.x1, y: this.y2 - this.y1 };
+    const deltaX = this.x2 - this.x1;
+    const deltaY = this.y2 - this.y1;
+    return new Vector2d(deltaX, deltaY);
   }
 
   public get dirVectorNormilized(): Vector2d {
@@ -59,8 +62,15 @@ export class Line {
     return this.y1 - this.slope * this.x1;
   }
 
-  public get midpoint(): { x: number; y: number } {
-    return { x: (this.x1 + this.x2) / 2, y: (this.y1 + this.y2) / 2 };
+  public get midpoint(): Vector2d {
+    const midX = (this.x1 + this.x2) / 2;
+    const midY = (this.y1 + this.y2) / 2;
+    return new Vector2d(midX, midY);
+  }
+
+  public get pointOne(): Vector2d {
+    const dirVectNorm = this.dirVectorNormilized;
+    return Vector2d.add(this.startPoint, dirVectNorm.inversed);
   }
 
   public rotated(angle: number): Line {
@@ -103,11 +113,11 @@ export class Line {
     return this.x1 === this.x2 && this.y1 === this.y2;
   }
 
-  public get startPoint(): { x: number; y: number } {
-    return { x: this.x1, y: this.y1 };
+  public get startPoint(): Vector2d {
+    return new Vector2d(this.x1, this.y1);
   }
 
-  public get endPoint(): { x: number; y: number } {
-    return { x: this.x2, y: this.y2 };
+  public get endPoint(): Vector2d {
+    return new Vector2d(this.x2, this.y2);
   }
 }

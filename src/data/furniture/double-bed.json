@@ -6,20 +6,20 @@
     "recipe": {
         "pattern": [
             "     ",
-            "%xxx%",
+            "twwwt",
             "xxxxx",
             "xxxxx",
             "xxxxx",
             "xxxxx"
         ],
         "key": {
-            "#": {
+            "w": {
                 "preferred": "wall"
             },
             "x": {
                 "preferred": "free"
             },
-            "%": {
+            "t": {
                 "preferred": "table"
             }
         },

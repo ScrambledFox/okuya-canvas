@@ -1,8 +1,8 @@
-import { Wall } from "@/types/inter";
+import { Door, Wall } from "@/types/inter";
 import { GridPoint, GridTile, TileFlags } from "@/types/tiles";
 import { useEditorState } from "@/state/editorState";
 import { resetAllFlags, resetAllFlags as resetFlagsOfTiles } from "./flags";
-import { getFurnitureTiles, getWallSegmentTiles } from "./tiles";
+import { getDoorTiles, getFurnitureTiles, getWallSegmentTiles } from "./tiles";
 import { Furniture } from "@/types/furniture";
 import { processFurnitureScores } from "@/state/furnitureState";
 
@@ -12,6 +12,7 @@ export const processTiles = (
   tiles: GridTile[][],
   walls: Wall[],
   points: GridPoint[][],
+  doors: Door[],
   furniture: Furniture[],
   tileProcessingOptions: TileProcessingOptions
 ) => {
@@ -24,6 +25,13 @@ export const processTiles = (
       tiles.forEach((tile) => {
         useEditorState.getState().addTileFlag(tile, flag);
       });
+    });
+  });
+
+  doors.forEach((door) => {
+    const tiles = getDoorTiles(door);
+    tiles.forEach((tile) => {
+      useEditorState.getState().addTileFlag(tile, TileFlags.Door);
     });
   });
 

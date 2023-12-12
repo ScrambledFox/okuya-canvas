@@ -38,13 +38,16 @@ const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
       colour = colour.mix(Color("#fff"), 0.25);
 
     if (filter & FilterFlags.Window && data.flags & TileFlags.Window)
-      colour = colour.mix(Color("#f0f"), 0.25);
+      colour = colour.mix(Color("#0ff"), 0.25);
+
+    if (filter & FilterFlags.Door && data.flags & TileFlags.Door)
+      colour = colour.mix(Color("#ff0"), 0.25);
 
     if (
       filter & FilterFlags.RuleAffected &&
       data.flags & TileFlags.RuleAffected
     )
-      colour = colour.mix(Color("#0ff"), 0.25);
+      colour = colour.mix(Color("#f0f"), 0.25);
 
     if (
       filter & FilterFlags.FurnitureInfluence &&

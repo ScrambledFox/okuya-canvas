@@ -1,5 +1,5 @@
 import { useEditorState } from "@/state/editorState";
-import { Wall, WallSegment } from "@/types/inter";
+import { Door, Wall, WallSegment } from "@/types/inter";
 import { GridTile, GridTile as Tile } from "@/types/tiles";
 import { Line } from "../line/lines";
 import { Furniture } from "@/types/furniture";
@@ -46,6 +46,67 @@ export const getWallSegmentTiles = (segment: WallSegment): Set<Tile> => {
   }
 
   return tiles;
+};
+
+export const getDoorTiles = (door: Door): Set<Tile> => {
+  const tiles: Set<Tile> = new Set();
+
+  const tryAddTile = (x: number, y: number) => {
+    const tile = getTileAtCoord(x, y);
+    if (tile !== null) tiles.add(tile);
+  };
+
+  const line = new Line(door.start.x, door.start.y, door.end.x, door.end.y);
+  const rotation = Math.round((line.angle * (180 / Math.PI)) / 90);
+
+  switch (rotation) {
+    case 0:
+      tryAddTile(line.x1, line.y1);
+      tryAddTile(line.x1 + 1, line.y1);
+      tryAddTile(line.x1, line.y1 - 1);
+      tryAddTile(line.x1 + 1, line.y1 - 1);
+      tryAddTile(line.x1, line.y1 - 2);
+      tryAddTile(line.x1 + 1, line.y1 - 2);
+      break;
+    case 1:
+      tryAddTile(line.x1 - 1, line.y1);
+      tryAddTile(line.x1 - 1, line.y1 + 1);
+      tryAddTile(line.x1, line.y1);
+      tryAddTile(line.x1, line.y1 + 1);
+      tryAddTile(line.x1 + 1, line.y1);
+      tryAddTile(line.x1 + 1, line.y1 + 1);
+      break;
+    case 2:
+      tryAddTile(line.x1 - 2, line.y1 - 1);
+      tryAddTile(line.x1 - 1, line.y1 - 1);
+      tryAddTile(line.x1 - 2, line.y1);
+      tryAddTile(line.x1 - 1, line.y1);
+      tryAddTile(line.x1 - 2, line.y1 + 1);
+      tryAddTile(line.x1 - 1, line.y1 + 1);
+      break;
+    case -1:
+      tryAddTile(line.x1, line.y1 - 1);
+      tryAddTile(line.x1, line.y1 - 2);
+      tryAddTile(line.x1 - 1, line.y1 - 1);
+      tryAddTile(line.x1 - 1, line.y1 - 2);
+      tryAddTile(line.x1 - 2, line.y1 - 1);
+      tryAddTile(line.x1 - 2, line.y1 - 2);
+      break;
+  }
+
+  return tiles;
+};
+
+export const getTilesBetweenInterPointRect = (
+  interPointOne: Vector2d,
+  interPointTwo: Vector2d
+): Set<Tile> => {
+  const minX = Math.min(interPointOne.x, interPointTwo.x);
+  const maxX = Math.max(interPointOne.x, interPointTwo.x);
+  const minY = Math.min(interPointOne.y, interPointTwo.y);
+  const maxY = Math.max(interPointOne.y, interPointTwo.y);
+
+  return getTilesInRect(new Vector2d(minX, minY), new Vector2d(maxX, maxY));
 };
 
 export const getNeighbours = (

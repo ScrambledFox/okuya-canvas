@@ -15,11 +15,12 @@ export const useProcessingState = create<ProcessingState>((set, get) => ({
     const tiles = useEditorState.getState().tiles;
     const walls = useEditorState.getState().walls;
     const points = useEditorState.getState().points;
+    const doors = useEditorState.getState().doors;
     const furniture = useFurnitureState.getState().furniture;
 
     const tileProcessingOptions = {};
 
-    processTiles(tiles, walls, points, furniture, tileProcessingOptions);
+    processTiles(tiles, walls, points, doors, furniture, tileProcessingOptions);
   },
 
   processWalls: () => {

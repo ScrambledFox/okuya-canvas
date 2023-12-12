@@ -23,12 +23,20 @@ export class Vector2d {
     return new Vector2d(Math.round(this.x), Math.round(this.y));
   }
 
+  public get inversed(): Vector2d {
+    return new Vector2d(-this.x, -this.y);
+  }
+
   public static multiply(vector: Vector2d, scalar: number): Vector2d {
     return new Vector2d(vector.x * scalar, vector.y * scalar);
   }
 
   public static divide(vector: Vector2d, scalar: number): Vector2d {
     return new Vector2d(vector.x / scalar, vector.y / scalar);
+  }
+
+  public static add(vector1: Vector2d, vector2: Vector2d): Vector2d {
+    return new Vector2d(vector1.x + vector2.x, vector1.y + vector2.y);
   }
 
   public static subtract(vector1: Vector2d, vector2: Vector2d): Vector2d {

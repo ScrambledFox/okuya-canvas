@@ -7,13 +7,6 @@ import { Vector2d } from "@/util/points/points";
 import { useToolState } from "@/state/tools/toolState";
 import { useSelectToolState } from "@/state/tools/selectToolState";
 
-interface DoorProps {
-  data: DoorType;
-  gridSize: number;
-  pointSize: number;
-  colourOverride: string;
-}
-
 const Door = ({ data }: { data: DoorType }) => {
   const tileSize = useEditorState((state) => state.tileSize);
   const [perpendicular, setPerpendicular] = useState<Line | null>(null);

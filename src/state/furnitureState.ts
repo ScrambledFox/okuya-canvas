@@ -40,7 +40,7 @@ export const useFurnitureState = create<FurnitureState>((set, get) => ({
       name,
       type: "furniture",
       furnitureType: type,
-      position: { x: 0, y: 0 },
+      position: new Vector2d(0, 0),
       rotation: 0,
     };
     set({ furniture: [...get().furniture, newFurniture] });
@@ -49,7 +49,17 @@ export const useFurnitureState = create<FurnitureState>((set, get) => ({
   moveFurnitureTo: (id, position) => {
     const newFurniture = get().furniture.map((f) => {
       if (f.id === id) {
-        return { ...f, position };
+        const clampedPosition = new Vector2d(
+          Math.max(
+            0,
+            Math.min(position.x, useEditorState.getState().gridSize.x)
+          ),
+          Math.max(
+            0,
+            Math.min(position.y, useEditorState.getState().gridSize.y)
+          )
+        );
+        return { ...f, position: clampedPosition };
       }
       return f;
     });
@@ -59,12 +69,25 @@ export const useFurnitureState = create<FurnitureState>((set, get) => ({
   moveFurniture: (id, position) => {
     const newFurniture = get().furniture.map((f) => {
       if (f.id === id) {
+        const clampedPosition = new Vector2d(
+          Math.max(
+            0,
+            Math.min(
+              f.position.x + position.x,
+              useEditorState.getState().gridSize.x
+            )
+          ),
+          Math.max(
+            0,
+            Math.min(
+              f.position.y + position.y,
+              useEditorState.getState().gridSize.y
+            )
+          )
+        );
         return {
           ...f,
-          position: {
-            x: f.position.x + position.x,
-            y: f.position.y + position.y,
-          },
+          position: clampedPosition,
         };
       }
       return f;

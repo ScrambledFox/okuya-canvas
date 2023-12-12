@@ -6,6 +6,7 @@ import { useToolState } from "@/state/tools/toolState";
 import { useSelectToolState } from "@/state/tools/selectToolState";
 import { calculateScore } from "@/util/furniture/score";
 import { getFurnitureRecipe } from "@/util/furniture/recipes";
+import { Vector2d } from "@/util/points/points";
 
 interface FurnitureRendererProps {}
 
@@ -59,13 +60,13 @@ const FurniturePiece = ({
       if (!selected) return;
 
       if (e.key === "ArrowUp") {
-        moveFurniture(id, { x: 0, y: -1 });
+        moveFurniture(id, new Vector2d(0, -1));
       } else if (e.key === "ArrowDown") {
-        moveFurniture(id, { x: 0, y: 1 });
+        moveFurniture(id, new Vector2d(0, 1));
       } else if (e.key === "ArrowLeft") {
-        moveFurniture(id, { x: -1, y: 0 });
+        moveFurniture(id, new Vector2d(-1, 0));
       } else if (e.key === "ArrowRight") {
-        moveFurniture(id, { x: 1, y: 0 });
+        moveFurniture(id, new Vector2d(1, 0));
       }
 
       if (e.key.toLowerCase() === "r") {
@@ -133,28 +134,17 @@ const FurniturePiece = ({
     // document.body.style.userSelect = "auto";
   };
 
+  const verticalRotation = rotation % 2 === 0;
   const style = {
     width: recipe.width * tileSize,
     height: recipe.height * tileSize,
 
     left:
       position.x * tileSize +
-      (rotation % 2 === 0
-        ? horizontalEven
-          ? tileSize / 2
-          : 0
-        : !horizontalEven
-        ? tileSize / 2
-        : 0),
+      (!verticalRotation && !horizontalEven && verticalEven ? tileSize / 2 : 0),
     top:
       position.y * tileSize +
-      (rotation % 2 === 0
-        ? verticalEven
-          ? tileSize / 2
-          : 0
-        : !verticalEven
-        ? tileSize / 2
-        : 0),
+      (!verticalRotation && verticalEven && !horizontalEven ? tileSize / 2 : 0),
 
     // transformOrigin: "top left",
     transform: `rotate(${rotation * 90}deg)`,
@@ -166,18 +156,21 @@ const FurniturePiece = ({
   };
 
   return (
-    <div
-      style={style}
-      className="absolute select-none"
-      onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-    >
-      <img className="select-none" src={recipe.svgPath} />
-      <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1">
-        <p>{score.toFixed(2)}</p>
+    <>
+      <div
+        style={style}
+        className="absolute select-none"
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+      >
+        <img className="select-none" src={recipe.svgPath} />
+        <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1">
+          <p>{position.x + ", " + position.y}</p>
+          <p>{score.toFixed(2)}</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

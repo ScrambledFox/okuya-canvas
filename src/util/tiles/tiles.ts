@@ -4,6 +4,7 @@ import { GridTile, GridTile as Tile } from "@/types/tiles";
 import { Line } from "../line/lines";
 import { Furniture } from "@/types/furniture";
 import { getFurnitureRecipe } from "../furniture/recipes";
+import { Vector2d } from "../points/points";
 
 export const transposedGridTiles = (tiles: GridTile[][]) => {
   const width = tiles[0].length;
@@ -96,23 +97,50 @@ export const getNeighbours = (
   return neighbours;
 };
 
-// Get all tiles under a furniture piece with the given position, rotation and size.
-export const getFurnitureTiles = (furniture: Furniture): Set<Tile> => {
+// Get all tiles from two opposing corners or a rectangle.
+// Can be any two corners, as long as they are opposing.
+export const getTilesInRect = (
+  cornerOne: Vector2d,
+  cornerTwo: Vector2d
+): Set<Tile> => {
   const tiles: Set<Tile> = new Set();
 
-  const x = furniture.position.x;
-  const y = furniture.position.y;
+  const minX = Math.min(cornerOne.x, cornerTwo.x);
+  const maxX = Math.max(cornerOne.x, cornerTwo.x);
+  const minY = Math.min(cornerOne.y, cornerTwo.y);
+  const maxY = Math.max(cornerOne.y, cornerTwo.y);
 
-  const recipe = getFurnitureRecipe(furniture.furnitureType);
-
-  const isHorizontal = furniture.rotation % 2 !== 0;
-
-  for (let j = 0; j < recipe.height; j++) {
-    for (let i = 0; i < recipe.width; i++) {
-      const tile = getTileAtCoord(x + i, y + j);
+  for (let x = minX; x <= maxX; x++) {
+    for (let y = minY; y <= maxY; y++) {
+      const tile = getTileAtCoord(x, y);
       if (tile !== null) tiles.add(tile);
     }
   }
 
+  return tiles;
+};
+
+// Get all tiles under a furniture piece with the given position, rotation and size.
+export const getFurnitureTiles = (furniture: Furniture): Set<Tile> => {
+  const x = furniture.position.x;
+  const y = furniture.position.y;
+
+  const rotation = furniture.rotation * 90 * (Math.PI / 180);
+
+  const recipe = getFurnitureRecipe(furniture.furnitureType);
+
+  const topLeft = new Vector2d(x, y);
+  const bottomRight = new Vector2d(x + recipe.width - 1, y + recipe.height - 1);
+
+  // Rotate the rectangle around the center of the furniture.
+  const center = new Vector2d(
+    x + recipe.width / 2 - 0.5,
+    y + recipe.height / 2 - 0.5
+  );
+
+  const rotatedOne = topLeft.rotateAround(center, rotation).rounded;
+  const rotatedTwo = bottomRight.rotateAround(center, rotation).rounded;
+
+  const tiles = getTilesInRect(rotatedOne, rotatedTwo);
   return tiles;
 };

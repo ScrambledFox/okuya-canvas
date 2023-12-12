@@ -6,6 +6,23 @@ export class Vector2d {
     this.y = y;
   }
 
+  public rotateAround(center: Vector2d, angle: number): Vector2d {
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+
+    const x = this.x - center.x;
+    const y = this.y - center.y;
+
+    const newX = x * cos - y * sin;
+    const newY = x * sin + y * cos;
+
+    return new Vector2d(newX + center.x, newY + center.y);
+  }
+
+  public get rounded(): Vector2d {
+    return new Vector2d(Math.round(this.x), Math.round(this.y));
+  }
+
   public static multiply(vector: Vector2d, scalar: number): Vector2d {
     return new Vector2d(vector.x * scalar, vector.y * scalar);
   }

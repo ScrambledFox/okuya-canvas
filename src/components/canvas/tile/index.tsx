@@ -47,8 +47,8 @@ const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
       colour = colour.mix(Color("#0ff"), 0.25);
 
     if (
-      filter & FilterFlags.FurnitureTest &&
-      data.flags & TileFlags.FurnitureTest
+      filter & FilterFlags.FurnitureInfluence &&
+      data.flags & TileFlags.FurnitureInfluence
     )
       colour = colour.mix(Color("#f00"), 0.25);
 

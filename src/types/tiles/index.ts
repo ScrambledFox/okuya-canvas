@@ -7,7 +7,7 @@ export enum TileFlags {
   Door = 1 << 1,
   Window = 1 << 2,
   RuleAffected = 1 << 3,
-  FurnitureTest = 1 << 4,
+  FurnitureInfluence = 1 << 4,
 }
 
 // Tile Flag LUT
@@ -17,7 +17,7 @@ export const TileFlagLUT = {
   [TileFlags.Door]: "Door",
   [TileFlags.Window]: "Window",
   [TileFlags.RuleAffected]: "RuleAffected",
-  [TileFlags.FurnitureTest]: "FurnitureTest",
+  [TileFlags.FurnitureInfluence]: "FurnitureInfluence",
 };
 
 // Create tile type to store tile data

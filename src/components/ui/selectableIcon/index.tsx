@@ -16,10 +16,10 @@ const SelectableIcon = (props: SelectableIconProps) => {
     <div
       style={style}
       onClick={props.onSelect}
-      className="max-h-16 aspect-square flex flex-col text-center justify-center items-center p-2 hover:bg-white hover:bg-opacity-10 rounded-lg cursor-pointer"
+      className="max-h-20 aspect-square flex flex-col text-center justify-center items-center p-2 hover:bg-white hover:bg-opacity-10 rounded-lg cursor-pointer"
     >
       <props.icon size={25} />
-      <div className="text-sm mt-2">{props.name}</div>
+      <div className="text-sm mt-2 w-full break-words">{props.name}</div>
     </div>
   );
 };

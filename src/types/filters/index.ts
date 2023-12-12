@@ -5,5 +5,5 @@ export enum FilterFlags {
   Door = 1 << 1,
   Window = 1 << 2,
   RuleAffected = 1 << 3,
-  FurnitureTest = 1 << 4,
+  FurnitureInfluence = 1 << 4,
 }

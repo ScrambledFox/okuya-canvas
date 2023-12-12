@@ -6,11 +6,11 @@
     "recipe": {
         "pattern": [
             "     ",
-            "%###%",
+            "%xxx%",
             "xxxxx",
             "xxxxx",
             "xxxxx",
-            " xxx "
+            "xxxxx"
         ],
         "key": {
             "#": {

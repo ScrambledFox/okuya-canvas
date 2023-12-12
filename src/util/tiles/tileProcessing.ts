@@ -30,7 +30,7 @@ export const processTiles = (
   furniture.forEach((f) => {
     const tiles = getFurnitureTiles(f);
     tiles.forEach((tile) => {
-      useEditorState.getState().addTileFlag(tile, TileFlags.FurnitureTest);
+      useEditorState.getState().addTileFlag(tile, TileFlags.FurnitureInfluence);
     });
   });
 };

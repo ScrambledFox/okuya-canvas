@@ -7,7 +7,7 @@ import { FaCouch } from "react-icons/fa";
 
 const FurniturePanel = () => {
   return (
-    <Container className="left-24 w-64 max-h-72 overflow-y-auto">
+    <Container className="left-28 w-64 max-h-72 overflow-y-auto">
       <div className="justify-center text-center">
         <h1 className="text-neutral-100 text-lg font-semibold">Furniture</h1>
       </div>
@@ -27,7 +27,7 @@ const FurnitureGrid = ({
   const arrayChildren = Children.toArray(children);
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap items-center justify-center ">
       {arrayChildren.map((item, i) => {
         return (
           <div className="w-1/3" key={i}>

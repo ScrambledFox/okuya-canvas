@@ -12,9 +12,10 @@ import { getFurnitureTiles } from "../tiles/tiles";
 import { getRuleFromRecipe, getSeverityFromRecipe } from "./rules";
 import { useEditorState } from "@/state/editorState";
 import { TileFlags } from "@/types/tiles";
+import { rotateMatrix } from "../math/matrix";
 
 export const calculateScore = (furniture: Furniture): number => {
-  const recipe = getFurnitureRecipe(furniture.furnitureType);
+  const rec = getFurnitureRecipe(furniture.furnitureType);
   const tiles = getFurnitureTiles(furniture);
 
   let score = 0;
@@ -23,13 +24,23 @@ export const calculateScore = (furniture: Furniture): number => {
   for (let i = 0; i < tiles.size; i++) {
     const tile = iterator.next().value;
 
-    const recipeX = i % recipe.width;
-    const recipeY = Math.floor(i / recipe.width);
-    const recipeTile = recipe.recipe.pattern[recipeY][recipeX];
+    console.log(i, tile.pos);
 
-    const rule = getRuleFromRecipe(recipe.recipe.key[recipeTile]);
-    const severity = getSeverityFromRecipe(recipe.recipe.key[recipeTile]);
-    console.log(rule);
+    const unfoldedecipePattern = rec.recipe.pattern.map((row) => row.split(""));
+    const rotatedRecipePattern = rotateMatrix(
+      unfoldedecipePattern,
+      furniture.rotation
+    );
+
+    const recipeX = i % rotatedRecipePattern.length;
+    const recipeY = Math.floor(i / rotatedRecipePattern.length);
+    const recipeTile = rotatedRecipePattern[recipeX][recipeY];
+    console.log(recipeX, recipeY);
+    console.log(recipeTile);
+    console.log(rotatedRecipePattern);
+
+    const rule = getRuleFromRecipe(rec.recipe.key[recipeTile]);
+    const severity = getSeverityFromRecipe(rec.recipe.key[recipeTile]);
     if (rule === undefined) continue;
 
     const tileScore = rule.ruleFunction(tile, rule.values);

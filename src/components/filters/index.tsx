@@ -24,8 +24,8 @@ const FilterDock = () => {
         icon={MdFilter}
       />
       <FilterIcon
-        name="FurnitureTest"
-        filter={FilterFlags.FurnitureTest}
+        name="FurnitureInfluence"
+        filter={FilterFlags.FurnitureInfluence}
         icon={MdFilter}
       />
     </Container>

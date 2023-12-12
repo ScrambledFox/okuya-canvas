@@ -7,12 +7,12 @@ const floodFill = (x: number, y: number, tiles: GridTile[][]) => {
     x >= tiles.length ||
     y < 0 ||
     y >= tiles[0].length ||
-    tiles[x][y].flags & TileFlags.Flooded
+    tiles[x][y].flags & TileFlags.RuleAffected
   ) {
     return;
   }
 
-  tiles[x][y].flags |= TileFlags.Flooded;
+  tiles[x][y].flags |= TileFlags.RuleAffected;
 
   // Stop if we hit a wall
   if (tiles[x][y].flags & TileFlags.Wall) {

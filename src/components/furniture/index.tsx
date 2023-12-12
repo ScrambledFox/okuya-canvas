@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Children, ElementType, ReactElement } from "react";
 import Container from "../ui/container";
 import FurnitureIcon from "./furnitureIcon";
 
+import { IoIosBed } from "react-icons/io";
 import { FaCouch } from "react-icons/fa";
 
 const FurniturePanel = () => {
@@ -11,39 +12,26 @@ const FurniturePanel = () => {
         <h1 className="text-neutral-100 text-lg font-semibold">Furniture</h1>
       </div>
       <FurnitureGrid>
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
-        <FurnitureIcon name="Bed" icon={FaCouch} />
+        <FurnitureIcon name="Double Bed" type="double-bed" icon={IoIosBed} />
+        <FurnitureIcon name="Couch w/ CL" type="cl-couch" icon={FaCouch} />
       </FurnitureGrid>
     </Container>
   );
 };
 
-const FurnitureGrid = ({ children }: { children: React.JSX.Element[] }) => {
+const FurnitureGrid = ({
+  children,
+}: {
+  children: React.JSX.Element | React.JSX.Element[];
+}) => {
+  const arrayChildren = Children.toArray(children);
+
   return (
     <div className="flex flex-wrap">
-      {children.map((item, i) => {
+      {arrayChildren.map((item, i) => {
         return (
-          <div key={i} className="flex-item w-1/4">
-            <FurnitureIcon name="Bed" icon={FaCouch} />
+          <div className="w-1/3" key={i}>
+            {item}
           </div>
         );
       })}

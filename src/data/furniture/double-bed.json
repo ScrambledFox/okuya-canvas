@@ -1,0 +1,28 @@
+{
+    "version": "0.2.5",
+    "svgPath": "/furniture/double-bed.svg",
+    "width": 5,
+    "height": 6,
+    "recipe": {
+        "pattern": [
+            "     ",
+            "%###%",
+            "xxxxx",
+            "xxxxx",
+            "xxxxx",
+            " xxx "
+        ],
+        "key": {
+            "#": {
+                "preferred": "wall"
+            },
+            "x": {
+                "preferred": "free"
+            },
+            "%": {
+                "preferred": "table"
+            }
+        },
+        "special": {}
+    }
+}

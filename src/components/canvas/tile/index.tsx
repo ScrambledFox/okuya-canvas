@@ -35,13 +35,22 @@ const Tile = ({ data, size, renderRight, renderBottom }: TileProps) => {
     const filter = useFilterState.getState().filter;
 
     if (filter & FilterFlags.Wall && data.flags & TileFlags.Wall)
-      colour = colour.mix(Color("#fff"), 0.1);
+      colour = colour.mix(Color("#fff"), 0.25);
 
-      if (filter & FilterFlags.Wall && data.flags & TileFlags.Window)
-      colour = colour.mix(Color("#f0f"), 0.1);
+    if (filter & FilterFlags.Wall && data.flags & TileFlags.Window)
+      colour = colour.mix(Color("#f0f"), 0.25);
 
-    if (filter & FilterFlags.Flooded && data.flags & TileFlags.Flooded)
-      colour = colour.mix(Color("#00f"), 0.1);
+    if (
+      filter & FilterFlags.RuleAffected &&
+      data.flags & TileFlags.RuleAffected
+    )
+      colour = colour.mix(Color("#00f"), 0.25);
+
+    if (
+      filter & FilterFlags.FurnitureTest &&
+      data.flags & TileFlags.FurnitureTest
+    )
+      colour = colour.mix(Color("#f00"), 0.25);
 
     setTileColour(colour.string());
   });

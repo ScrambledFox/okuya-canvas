@@ -11,6 +11,9 @@ import WallToolDrawer from "@/components/tools/tool/wallTool/wallToolDrawer";
 import Version from "@/components/version";
 import { useToolState } from "@/state/tools/toolState";
 import WindowToolDrawer from "@/components/tools/tool/windowTool/windowToolDrawer";
+import FurniturePanel from "@/components/furniture";
+import FurnitureIcon from "@/components/furniture/furnitureIcon";
+import { IoIosBed } from "react-icons/io";
 
 const Canvas = dynamic(() => import("@/components/canvas"), {
   ssr: false,
@@ -45,7 +48,7 @@ export default function Page() {
 
       <div id="panels">
         <ToolBar />
-        {/* <FurniturePanel /> */}
+        <FurniturePanel />
         <FilterDock />
         <SaveLoadPanel />
       </div>

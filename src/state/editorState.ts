@@ -69,7 +69,7 @@ export const useEditorState = create<EditorState>((set, get) => ({
 
   addTileFlag(tile, flag) {
     const newTiles = get().tiles;
-    newTiles[tile.pos.x][tile.pos.y].flags |= flag;
+    newTiles[tile.pos.y][tile.pos.x].flags |= flag;
     set({ tiles: newTiles });
   },
 

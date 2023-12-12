@@ -18,7 +18,16 @@ const FilterDock = () => {
       <FilterIcon name="Wall" filter={FilterFlags.Wall} icon={MdFilter} />
       <FilterIcon name="Door" filter={FilterFlags.Door} icon={MdFilter} />
       <FilterIcon name="Window" filter={FilterFlags.Window} icon={MdFilter} />
-      <FilterIcon name="Flooded" filter={FilterFlags.Flooded} icon={MdFilter} />
+      <FilterIcon
+        name="RuleAffected"
+        filter={FilterFlags.RuleAffected}
+        icon={MdFilter}
+      />
+      <FilterIcon
+        name="FurnitureTest"
+        filter={FilterFlags.FurnitureTest}
+        icon={MdFilter}
+      />
     </Container>
   );
 };

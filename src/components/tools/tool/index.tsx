@@ -12,7 +12,6 @@ interface ToolIconProps {
 }
 
 const ToolIcon = (props: ToolIconProps) => {
-  // const [hover, setHover] = React.useState(false);
   const selected =
     useToolState((state) => state.selectedTool) === props.toolType;
 

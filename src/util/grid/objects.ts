@@ -1,4 +1,5 @@
 import { useEditorState } from "@/state/editorState";
+import { useFurnitureState } from "@/state/furnitureState";
 
 export const handleDeleteObjectWithId = (id: string | null) => {
   if (id === null) return;
@@ -16,6 +17,10 @@ export const handleDeleteObjectWithId = (id: string | null) => {
     const doors = useEditorState.getState().doors;
     const newDoors = doors.filter((door) => door.id !== id);
     useEditorState.getState().setDoors(newDoors);
+  } else if (object.type === "furniture") {
+    const furniture = useFurnitureState.getState().furniture;
+    const newFurniture = furniture.filter((f) => f.id !== id);
+    useFurnitureState.getState().setFurniture(newFurniture);
   } else {
     console.error("Unknown object type: " + object.type);
   }

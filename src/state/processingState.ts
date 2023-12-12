@@ -3,6 +3,7 @@ import { useEditorState } from "./editorState";
 import { processTiles } from "@/util/tiles/tileProcessing";
 import { getAllWallPoints } from "@/util/walls/walls";
 import { getPointsAtCoords } from "@/util/points/points";
+import { useFurnitureState } from "./furnitureState";
 
 export type ProcessingState = {
   processTiles: () => void;
@@ -14,10 +15,11 @@ export const useProcessingState = create<ProcessingState>((set, get) => ({
     const tiles = useEditorState.getState().tiles;
     const walls = useEditorState.getState().walls;
     const points = useEditorState.getState().points;
+    const furniture = useFurnitureState.getState().furniture;
 
     const tileProcessingOptions = {};
 
-    processTiles(tiles, walls, points, tileProcessingOptions);
+    processTiles(tiles, walls, points, furniture, tileProcessingOptions);
   },
 
   processWalls: () => {

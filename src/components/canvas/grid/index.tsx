@@ -10,6 +10,7 @@ import Wall from "../house/wall";
 import { useEditorState } from "@/state/editorState";
 import LoadingElement from "@/components/loading";
 import Door from "../house/door";
+import FurnitureRenderer from "../furniture";
 
 interface GridProps {
   width: number;
@@ -62,7 +63,7 @@ const Grid = ({ width, height, size }: GridProps) => {
 
   return (
     <div className="fixed flex flex-col h-screen w-screen justify-center items-center text-center">
-      <div className="self-center items-center fixed">
+      <div id="grid" className="self-center items-center fixed">
         <Suspense fallback={<LoadingElement />}>
           {/* Render Tiles */}
 
@@ -131,6 +132,11 @@ const Grid = ({ width, height, size }: GridProps) => {
                 {doors.map((door) => (
                   <Door key={door.id} data={door} />
                 ))}
+              </div>
+
+              {/* Render Furniture */}
+              <div id="furniture" className="absolute left-0 top-0">
+                <FurnitureRenderer />
               </div>
             </>
           )}

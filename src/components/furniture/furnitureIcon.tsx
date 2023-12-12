@@ -1,23 +1,20 @@
-import { ElementType } from "react";
-import { Furniture } from "@/types/furniture";
-import SelectableIcon from "../ui/selectableIcon";
+import { ElementType, useState } from "react";
+import ClickableIcon from "../ui/clickableIcon";
+import { FurnitureType } from "@/types/furniture";
+import { useFurnitureState } from "@/state/furnitureState";
 
 type FurnitureIconProps = {
+  type: FurnitureType;
   name: string;
   icon: ElementType;
 };
 
 const FurnitureIcon = ({ name, icon, ...props }: FurnitureIconProps) => {
-  const onSelect = () => {};
+  const onClick = () => {
+    useFurnitureState.getState().addFurniture(name, props.type);
+  };
 
-  return (
-    <SelectableIcon
-      icon={icon}
-      name={name}
-      onSelect={onSelect}
-      selected={false}
-    />
-  );
+  return <ClickableIcon icon={icon} name={name} onClick={onClick} />;
 };
 
 export default FurnitureIcon;

@@ -2,6 +2,8 @@ import { useEditorState } from "@/state/editorState";
 import { Wall, WallSegment } from "@/types/inter";
 import { GridTile, GridTile as Tile } from "@/types/tiles";
 import { Line } from "../line/lines";
+import { Furniture } from "@/types/furniture";
+import { getFurnitureRecipe } from "../furniture/recipes";
 
 export const transposedGridTiles = (tiles: GridTile[][]) => {
   const width = tiles[0].length;
@@ -15,7 +17,7 @@ export const transposedGridTiles = (tiles: GridTile[][]) => {
 export const getTileAtCoord = (x: number, y: number): Tile | null => {
   const gridSize = useEditorState.getState().gridSize;
   if (x < 0 || x > gridSize.x - 1 || y < 0 || y > gridSize.y - 1) return null;
-  return useEditorState.getState().tiles[x][y];
+  return useEditorState.getState().tiles[y][x];
 };
 
 // WallSegment has a start and end point and always a length of 1, but we want to get the tiles next to this line.
@@ -44,56 +46,6 @@ export const getWallSegmentTiles = (segment: WallSegment): Set<Tile> => {
 
   return tiles;
 };
-
-// export const getTilesNextToWall = (wall: Wall) => {
-//   const tiles: Tile[] = [];
-
-//   const deltaX = wall.end.x - wall.start.x;
-//   const deltaY = wall.end.y - wall.start.y;
-
-//   const xDirection = deltaX > 0 ? 1 : -1;
-//   const yDirection = deltaY > 0 ? 1 : -1;
-
-//   const xStart = wall.start.x;
-//   const yStart = wall.start.y;
-
-//   const xEnd = wall.end.x;
-//   const yEnd = wall.end.y;
-
-//   const addTile = (x: number, y: number) => {
-//     const tile = getTileAtCoord(x, y);
-//     if (tile === undefined) return;
-//     tiles.push(tile);
-//   };
-
-//   if (Math.abs(deltaX) > Math.abs(deltaY)) {
-//     // x is the main axis
-//     for (
-//       let x = xDirection === 1 ? xStart : xStart - 1;
-//       xDirection === 1 ? x < xEnd : x >= xEnd;
-//       x += xDirection
-//     ) {
-//       addTile(x, yStart);
-//       if (yStart - 1 >= 0) {
-//         addTile(x, yStart - 1);
-//       }
-//     }
-//   } else {
-//     // y is the main axis
-//     for (
-//       let y = yDirection === 1 ? yStart : yStart - 1;
-//       yDirection === 1 ? y < yEnd : y >= yEnd;
-//       y += yDirection
-//     ) {
-//       addTile(xStart, y);
-//       if (xStart - 1 >= 0) {
-//         addTile(xStart - 1, y);
-//       }
-//     }
-//   }
-
-//   return tiles;
-// };
 
 export const getNeighbours = (
   tile: Tile,
@@ -142,4 +94,25 @@ export const getNeighbours = (
   }
 
   return neighbours;
+};
+
+// Get all tiles under a furniture piece with the given position, rotation and size.
+export const getFurnitureTiles = (furniture: Furniture): Set<Tile> => {
+  const tiles: Set<Tile> = new Set();
+
+  const x = furniture.position.x;
+  const y = furniture.position.y;
+
+  const recipe = getFurnitureRecipe(furniture.furnitureType);
+
+  const isHorizontal = furniture.rotation % 2 !== 0;
+
+  for (let j = 0; j < recipe.height; j++) {
+    for (let i = 0; i < recipe.width; i++) {
+      const tile = getTileAtCoord(x + i, y + j);
+      if (tile !== null) tiles.add(tile);
+    }
+  }
+
+  return tiles;
 };

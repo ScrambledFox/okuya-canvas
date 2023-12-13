@@ -67,7 +67,7 @@ export const getCoordsInBetween = (
   for (let i = 0; i <= steps; i++) {
     const x = start.x + i * incrementX;
     const y = start.y + i * incrementY;
-    coords.add({ x, y });
+    coords.add(new Vector2d(x, y));
   }
 
   return coords;

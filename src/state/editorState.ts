@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { useProcessingState } from "./processingState";
 import { updateIdDictionary } from "@/util/ids";
 import { handleDeleteObjectWithId } from "@/util/grid/objects";
+import { Furniture } from "@/types/furniture";
 
 const process = () => {
   useProcessingState.getState().processTiles();
@@ -45,6 +46,7 @@ export type EditorState = {
   deleteObjectWithId: (id: string | null) => void;
 
   addTileFlag: (tile: GridTile, flag: number) => void;
+  addTileFurniture: (tile: GridTile, furniture: Furniture) => void;
 };
 
 export const useEditorState = create<EditorState>((set, get) => ({
@@ -70,6 +72,12 @@ export const useEditorState = create<EditorState>((set, get) => ({
   addTileFlag(tile, flag) {
     const newTiles = get().tiles;
     newTiles[tile.pos.y][tile.pos.x].flags |= flag;
+    set({ tiles: newTiles });
+  },
+
+  addTileFurniture(tile, furniture) {
+    const newTiles = get().tiles;
+    newTiles[tile.pos.y][tile.pos.x].containingFurniture.push(furniture);
     set({ tiles: newTiles });
   },
 

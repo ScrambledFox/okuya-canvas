@@ -16,11 +16,25 @@ export class Vector2d {
     const newX = x * cos - y * sin;
     const newY = x * sin + y * cos;
 
+    const newVector = new Vector2d(newX + center.x, newY + center.y);
+
+    console.log(x, y);
+    console.log(newVector);
+    console.log(newVector.rounded);
+
     return new Vector2d(newX + center.x, newY + center.y);
   }
 
   public get rounded(): Vector2d {
     return new Vector2d(Math.round(this.x), Math.round(this.y));
+  }
+
+  public get floored(): Vector2d {
+    return new Vector2d(Math.floor(this.x), Math.floor(this.y));
+  }
+
+  public get ceiled(): Vector2d {
+    return new Vector2d(Math.ceil(this.x), Math.ceil(this.y));
   }
 
   public get inversed(): Vector2d {

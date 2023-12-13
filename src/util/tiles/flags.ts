@@ -16,3 +16,13 @@ export const resetAllFlags = () => {
   resetFlagsOfTiles(tiles);
   useEditorState.getState().setTiles(tiles);
 };
+
+export const resetAllFurniture = () => {
+  const tiles = useEditorState.getState().tiles;
+  tiles.forEach((row) => {
+    row.forEach((tile) => {
+      tile.containingFurniture = [];
+    });
+  });
+  useEditorState.getState().setTiles(tiles);
+};

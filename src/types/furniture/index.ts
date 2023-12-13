@@ -1,6 +1,12 @@
 import { Vector2d } from "@/util/points/points";
 
-export type FurnitureType = "double-bed" | "cl-couch";
+export type FurnitureType =
+  | "double-bed"
+  | "cl-couch"
+  | "endtable"
+  | "round-table"
+  | "table"
+  | "chair";
 
 export type Furniture = {
   id: string;

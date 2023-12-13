@@ -4,6 +4,14 @@
     "width": 5,
     "height": 6,
     "recipe": {
+        "shape": [
+            "     ",
+            " xxx ",
+            " xxx ",
+            " xxx ",
+            " xxx ",
+            "     "
+        ],
         "pattern": [
             "     ",
             "twwwt",

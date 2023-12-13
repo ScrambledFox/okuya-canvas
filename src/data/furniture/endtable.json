@@ -1,0 +1,25 @@
+{
+    "version": "0.2.5",
+    "svgPath": "/furniture/endtable.svg",
+    "width": 3,
+    "height": 3,
+    "recipe": {
+        "shape": [
+            "   ",
+            " x ",
+            "   "
+        ],
+        "pattern": [
+            " b ",
+            "b b",
+            " b "
+        ],
+        "key": {
+            "b": {
+                "preferred": "double-bed",
+                "severity": 0.5
+            }
+        },
+        "special": {}
+    }
+}

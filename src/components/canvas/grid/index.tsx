@@ -11,6 +11,7 @@ import { useEditorState } from "@/state/editorState";
 import LoadingElement from "@/components/loading";
 import Door from "../house/door";
 import FurnitureRenderer from "../furniture";
+import { Vector2d } from "@/util/points/points";
 
 interface GridProps {
   width: number;
@@ -52,7 +53,7 @@ const Grid = ({ width, height, size }: GridProps) => {
       Array.from({ length: height + 1 }, (v, y) =>
         Array.from({ length: width + 1 }, (b, x) => {
           return {
-            pos: { x: x, y: y },
+            pos: new Vector2d(x, y),
             id: uuidv4(),
             col: "#444",
           } as GridPoint;

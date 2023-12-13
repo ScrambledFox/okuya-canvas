@@ -4,6 +4,10 @@ import FurnitureIcon from "./furnitureIcon";
 
 import { IoIosBed } from "react-icons/io";
 import { FaCouch } from "react-icons/fa";
+import { MdOutlineTableRestaurant } from "react-icons/md";
+import { MdTableRestaurant } from "react-icons/md";
+import { MdTableBar } from "react-icons/md";
+import { PiChairFill } from "react-icons/pi";
 
 const FurniturePanel = () => {
   return (
@@ -14,6 +18,18 @@ const FurniturePanel = () => {
       <FurnitureGrid>
         <FurnitureIcon name="Double Bed" type="double-bed" icon={IoIosBed} />
         <FurnitureIcon name="Couch w/ CL" type="cl-couch" icon={FaCouch} />
+        <FurnitureIcon
+          name="End Table"
+          type="endtable"
+          icon={MdOutlineTableRestaurant}
+        />
+        <FurnitureIcon
+          name="Round Table"
+          type="round-table"
+          icon={MdTableBar}
+        />
+        <FurnitureIcon name="Table" type="table" icon={MdTableRestaurant} />
+        <FurnitureIcon name="Chair" type="chair" icon={PiChairFill} />
       </FurnitureGrid>
     </Container>
   );

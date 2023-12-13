@@ -1,4 +1,5 @@
 import { Vector2d } from "@/util/points/points";
+import { Furniture } from "../furniture";
 
 // Type definitions for tile flags
 export enum TileFlags {
@@ -26,6 +27,7 @@ export type GridTile = {
   id: string;
   color: string;
   flags: TileFlags;
+  containingFurniture: Furniture[];
 };
 
 export type GridPoint = {

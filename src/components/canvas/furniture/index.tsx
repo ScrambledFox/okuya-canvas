@@ -166,8 +166,8 @@ const FurniturePiece = ({
       >
         <img className="select-none" src={recipe.svgPath} />
         <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1">
-          <p>{position.x + ", " + position.y}</p>
-          <p>{score.toFixed(2)}</p>
+          {/* <p>{position.x + ", " + position.y}</p> */}
+          <p>{score.toFixed(1)}</p>
         </div>
       </div>
     </>

@@ -1,8 +1,17 @@
 import { Door, Wall } from "@/types/inter";
 import { GridPoint, GridTile, TileFlags } from "@/types/tiles";
 import { useEditorState } from "@/state/editorState";
-import { resetAllFlags, resetAllFlags as resetFlagsOfTiles } from "./flags";
-import { getDoorTiles, getFurnitureTiles, getWallSegmentTiles } from "./tiles";
+import {
+  resetAllFlags,
+  resetAllFurniture,
+  resetAllFlags as resetFlagsOfTiles,
+} from "./flags";
+import {
+  getDoorTiles,
+  getFurnitureInternalTiles,
+  getFurnitureTiles,
+  getWallSegmentTiles,
+} from "./tiles";
 import { Furniture } from "@/types/furniture";
 import { processFurnitureScores } from "@/state/furnitureState";
 
@@ -17,6 +26,7 @@ export const processTiles = (
   tileProcessingOptions: TileProcessingOptions
 ) => {
   resetAllFlags();
+  resetAllFurniture();
 
   walls.forEach((wall) => {
     wall.segments.forEach((segment) => {
@@ -37,8 +47,12 @@ export const processTiles = (
 
   furniture.forEach((f) => {
     const tiles = getFurnitureTiles(f);
-    tiles.forEach((tile) => {
+    const internal = getFurnitureInternalTiles(f);
+    internal.forEach((tile) => {
       useEditorState.getState().addTileFlag(tile, TileFlags.FurnitureInfluence);
+    });
+    internal.forEach((tile) => {
+      useEditorState.getState().addTileFurniture(tile, f);
     });
   });
 };

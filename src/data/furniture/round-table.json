@@ -1,0 +1,26 @@
+{
+    "version": "0.2.5",
+    "svgPath": "/furniture/round-table.svg",
+    "width": 4,
+    "height": 4,
+    "recipe": {
+        "shape": [
+            "    ",
+            " xx ",
+            " xx ",
+            "    "
+        ],
+        "pattern": [
+            "    ",
+            " bb ",
+            " bb ",
+            "    "
+        ],
+        "key": {
+            "b": {
+                "preferred": "chair,free"
+            }
+        },
+        "special": {}
+    }
+}

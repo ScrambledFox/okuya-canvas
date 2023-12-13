@@ -63,6 +63,13 @@ export const checkPreferredFlag = (
 ): Number => {
   let score = 0;
 
+  const containedFurniture = tile.containingFurniture;
+  containedFurniture.forEach((furniture) => {
+    if (preferred.includes(furniture.furnitureType)) {
+      score += 1;
+    }
+  });
+
   if (tile.flags & TileFlags.Wall && preferred.includes("wall")) {
     score += 1;
   }

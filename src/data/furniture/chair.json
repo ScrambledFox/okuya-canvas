@@ -1,0 +1,24 @@
+{
+    "version": "0.2.5",
+    "svgPath": "/furniture/chair.svg",
+    "width": 3,
+    "height": 3,
+    "recipe": {
+        "shape": [
+            "   ",
+            " x ",
+            "   "
+        ],
+        "pattern": [
+            " b ",
+            "   ",
+            "   "
+        ],
+        "key": {
+            "b": {
+                "preferred": "free,table"
+            }
+        },
+        "special": {}
+    }
+}

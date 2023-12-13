@@ -14,6 +14,7 @@ export type FurnitureRecipe = {
   svgPath: string;
   width: number;
   height: number;
+  price: number;
   recipe: {
     shape: string[];
     pattern: string[];

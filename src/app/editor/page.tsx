@@ -60,7 +60,7 @@ export default function Page() {
         <ToolBar />
         <FurniturePanel />
         <FilterDock />
-        <SaveLoadPanel />
+        {/* <SaveLoadPanel /> */}
         {selectedObjectIsFurniture && <ExplainabilityPanel />}
       </div>
 

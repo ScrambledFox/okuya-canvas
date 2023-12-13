@@ -5,6 +5,7 @@ import { getAllWallPoints } from "@/util/walls/walls";
 import { getPointsAtCoords } from "@/util/points/points";
 import { useFurnitureState } from "./furnitureState";
 import { calculateScore } from "@/util/furniture/score";
+import { getFurnitureRecipe } from "@/util/furniture/recipes";
 
 export type ProcessingState = {
   processTiles: () => void;
@@ -41,10 +42,16 @@ export const useProcessingState = create<ProcessingState>((set, get) => ({
 
   calculateFurnitureScores: () => {
     const furniture = useFurnitureState.getState().furniture;
+
     useFurnitureState.getState().resetScore();
+    useFurnitureState.getState().resetUsedBudget();
+
     furniture.forEach((f) => {
       f.score = calculateScore(f);
       useFurnitureState.getState().addScore(f.score);
+
+      const price = getFurnitureRecipe(f.furnitureType).price;
+      useFurnitureState.getState().addUsedBudget(price);
     });
     useFurnitureState.getState().setFurnitureWithoutProcessing(furniture);
   },

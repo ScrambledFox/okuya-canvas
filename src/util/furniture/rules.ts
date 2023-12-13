@@ -11,6 +11,8 @@ const getRuleFunction = (ruleFunctionName: string): Function | null => {
   switch (ruleFunctionName) {
     case "preferred":
       return checkPreferredFlag;
+    case "not-allowed":
+      return checkNotAllowedFlag;
     default:
       return null;
   }
@@ -56,6 +58,19 @@ export const getSeverityFromRecipe = (ruleKey: {
   return ruleKey.severity;
 };
 
+export const getSeveritiesFromRecipe = (ruleKey: {
+  severity: number;
+}): number[] => {
+  const severities: number[] = [];
+
+  const severity = getSeverityFromRecipe(ruleKey);
+  if (severity !== undefined) {
+    severities.push(severity);
+  }
+
+  return severities;
+};
+
 // Returns a goodness score for the tile.
 export const checkPreferredFlag = (
   tile: GridTile,
@@ -75,6 +90,29 @@ export const checkPreferredFlag = (
   }
   if (tile.flags & TileFlags.Wall && preferred.includes("free")) {
     score -= 1;
+  }
+
+  return score;
+};
+
+export const checkNotAllowedFlag = (
+  tile: GridTile,
+  notAllowed: string[]
+): Number => {
+  let score = 0;
+
+  const containedFurniture = tile.containingFurniture;
+  containedFurniture.forEach((furniture) => {
+    if (notAllowed.includes(furniture.furnitureType)) {
+      score -= 1;
+    }
+  });
+
+  if (tile.flags & TileFlags.Wall && notAllowed.includes("wall")) {
+    score -= 1;
+  }
+  if (tile.flags & TileFlags.Wall && notAllowed.includes("free")) {
+    score += 1;
   }
 
   return score;

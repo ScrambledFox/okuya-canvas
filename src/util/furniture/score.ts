@@ -5,6 +5,7 @@ import { getRuleFromRecipe, getSeverityFromRecipe } from "./rules";
 import { useEditorState } from "@/state/editorState";
 import { TileFlags } from "@/types/tiles";
 import { rotateMatrix } from "../math/matrix";
+import { useTipState } from "@/state/explain/tipState";
 
 export const calculateScore = (furniture: Furniture): number => {
   const rec = getFurnitureRecipe(furniture.furnitureType);
@@ -13,6 +14,7 @@ export const calculateScore = (furniture: Furniture): number => {
   let score = 0;
 
   let iterator = tiles.values();
+
   for (let i = 0; i < tiles.size; i++) {
     const tile = iterator.next().value;
 
@@ -31,6 +33,7 @@ export const calculateScore = (furniture: Furniture): number => {
     if (rule === undefined) continue;
 
     const tileScore = rule.ruleFunction(tile, rule.values);
+
     if (tileScore === 0) continue;
     score += tileScore * severity;
 

@@ -1,24 +1,12 @@
-import { Children } from "react";
+import { Children, useEffect, useState } from "react";
 import Container from "../ui/container";
 import TipPanel from "./tip";
 
-const ExplainabilityPanel = () => {
-  return (
-    <Container className="w-1/6 h-2/3 right-36 top-16 ">
-      <div className="justify-center text-center">
-        <h1 className="text-neutral-100 text-lg font-semibold">
-          Placement Info
-        </h1>
-        <TipWrapper>
-          <TipPanel tip="Tip 1" />
-          <TipPanel tip="Tip 2" />
-          <TipPanel tip="Tip 3" />
-          <TipPanel tip="Tip 4" />
-        </TipWrapper>
-      </div>
-    </Container>
-  );
-};
+import { v4 as uuidv4 } from "uuid";
+import { getTipIcon } from "@/util/explain/tip";
+import { useSelectToolState } from "@/state/tools/selectToolState";
+import { useTipState } from "@/state/explain/tipState";
+import { Tip } from "@/types/explain/tip";
 
 const TipWrapper = ({
   children,
@@ -32,12 +20,42 @@ const TipWrapper = ({
       {arrayChildren.map((item, i) => {
         return (
           <>
+            {i === 0 && <span className="mt-2" />}
             {item}
-            <span className="w-full border-t-2 border-zinc-800" />
+            {i !== arrayChildren.length - 1 && (
+              <span className="w-full border-t-2 border-zinc-800 mt-2 mb-2" />
+            )}
           </>
         );
       })}
     </div>
+  );
+};
+
+const ExplainabilityPanel = () => {
+  const selectedId = useSelectToolState((state) => state.selectedObject);
+  const tips = useTipState((state) => state.tips);
+
+  const [tipsSelected, setTipsSelected] = useState<Tip[]>([]);
+
+  useEffect(() => {
+    if (selectedId !== null) {
+      setTipsSelected(tips.filter((tip) => tip.furnitureId === selectedId));
+    }
+  }, [selectedId, tips]);
+
+  return (
+    tips.length > 0 && (
+      <Container className="w-1/6 h-5/6 right-36 top-16 overflow-y-scroll">
+        <div className="justify-center ">
+          <TipWrapper>
+            {tipsSelected.map((tip, i) => {
+              return <TipPanel key={i} tip={tip} />;
+            })}
+          </TipWrapper>
+        </div>
+      </Container>
+    )
   );
 };
 

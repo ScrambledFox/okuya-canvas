@@ -19,13 +19,13 @@ const ToolBar = () => {
       <div className="justify-center text-center">
         <h1 className="text-neutral-100 text-lg font-semibold">Tools</h1>
       </div>
-      <ToolIcon name="Pan" toolType="pan" icon={FaHandPaper} />
+      {/* <ToolIcon name="Pan" toolType="pan" icon={FaHandPaper} /> */}
       <ToolIcon name="Select" toolType="select" icon={FaRegHandPointer} />
-      <ToolIcon
+      {/* <ToolIcon
         name="Direct Select"
         toolType="direct-select"
         icon={TbPointerFilled}
-      />
+      /> */}
       <ToolIcon name="Wall" toolType="wall" icon={GiBrickWall} />
       <ToolIcon
         name="Door"
@@ -34,7 +34,7 @@ const ToolBar = () => {
         icon={FaDoorClosed}
       />
       <ToolIcon name="Window" toolType="window" icon={TbWindow} />
-      <ToolIcon name="Floodfill" toolType="dev-floodfill" icon={FaDev} />
+      {/* <ToolIcon name="Floodfill" toolType="dev-floodfill" icon={FaDev} /> */}
     </Container>
   );
 };

@@ -3,6 +3,7 @@
     "svgPath": "/furniture/chair.svg",
     "width": 3,
     "height": 3,
+    "price": 15,
     "recipe": {
         "shape": [
             "   ",

@@ -20,6 +20,9 @@ export type FurnitureState = {
 
   budget: number;
   usedBudget: number;
+  addUsedBudget: (budget: number) => void;
+  resetUsedBudget: () => void;
+
   score: number;
   setScore: (newScore: number) => void;
   resetScore: () => void;
@@ -120,6 +123,9 @@ export const useFurnitureState = create<FurnitureState>((set, get) => ({
 
   budget: 1000,
   usedBudget: 0,
+  addUsedBudget: (budget) => set({ usedBudget: get().usedBudget + budget }),
+  resetUsedBudget: () => set({ usedBudget: 0 }),
+
   score: 0,
   setScore: (newScore) => set({ score: newScore }),
   resetScore: () => set({ score: 0 }),

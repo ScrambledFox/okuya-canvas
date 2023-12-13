@@ -3,6 +3,7 @@
     "svgPath": "/furniture/double-bed.svg",
     "width": 5,
     "height": 6,
+    "price": 400,
     "recipe": {
         "shape": [
             "     ",
@@ -13,22 +14,56 @@
             "     "
         ],
         "pattern": [
-            "     ",
+            "ppppp",
             "twwwt",
             "xxxxx",
             "xxxxx",
             "xxxxx",
             "xxxxx"
         ],
+        "tipShape": [
+            "     ",
+            "l   r",
+            "l   r",
+            "l   r",
+            "l   r",
+            " bbb "
+        ],
         "key": {
+            "p": {
+                "not-allowed": "door"
+            },
             "w": {
-                "preferred": "wall"
+                "preferred": "wall",
+                "not-allowed": "door"
             },
             "x": {
-                "preferred": "free"
+                "preferred": "free",
+                "not-allowed": "door"
             },
             "t": {
-                "preferred": "table"
+                "preferred": "table",
+                "not-allowed": "door"
+            }
+        },
+        "tipKey": {
+            "l": {
+                "preferred": "free",
+                "tips": {
+                    "ifAll": "bed-space-one-side"
+                }
+            },
+            "r": {
+                "preferred": "free",
+                "tips": {
+                    "ifAll": "bed-space-one-side"
+                }
+            },
+            "b": {
+                "preferred": "free",
+                "tips": {
+                    "ifAll": "bed-space-back"
+                }
             }
         },
         "special": {}

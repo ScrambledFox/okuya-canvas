@@ -4,7 +4,6 @@ import { useFurnitureState } from "@/state/furnitureState";
 import { Furniture, FurnitureType } from "@/types/furniture";
 import { useToolState } from "@/state/tools/toolState";
 import { useSelectToolState } from "@/state/tools/selectToolState";
-import { calculateScore } from "@/util/furniture/score";
 import { getFurnitureRecipe } from "@/util/furniture/recipes";
 import { Vector2d } from "@/util/points/points";
 
@@ -20,6 +19,7 @@ const FurnitureRenderer = (props: FurnitureRendererProps) => {
           key={i}
           name={f.name}
           type="furniture"
+          score={f.score}
           furnitureType={f.furnitureType}
           id={f.id}
           position={f.position}
@@ -33,6 +33,7 @@ const FurnitureRenderer = (props: FurnitureRendererProps) => {
 const FurniturePiece = ({
   name,
   furnitureType: type,
+  score,
   id,
   position,
   rotation,
@@ -52,8 +53,6 @@ const FurniturePiece = ({
 
   const horizontalEven = recipe.width % 2 === 0;
   const verticalEven = recipe.height % 2 === 0;
-
-  const [score, setScore] = useState<Number>(0);
 
   useEffect(() => {
     const onKeyDown = (e: any) => {
@@ -80,19 +79,6 @@ const FurniturePiece = ({
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [id, moveFurniture, rotateFurniture, selected, rotation]);
-
-  useEffect(() => {
-    setScore(
-      calculateScore({
-        id,
-        name,
-        type: "furniture",
-        furnitureType: type,
-        position,
-        rotation,
-      })
-    );
-  }, [id, name, type, position, rotation]);
 
   const onMouseDown = (e: any) => {
     // setIsDragging(true);

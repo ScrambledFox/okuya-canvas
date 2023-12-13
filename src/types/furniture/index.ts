@@ -11,6 +11,7 @@ export type FurnitureType =
 export type Furniture = {
   id: string;
   type: string;
+  score: number;
   furnitureType: FurnitureType;
   name: string;
   position: Vector2d;

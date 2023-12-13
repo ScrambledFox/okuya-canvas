@@ -3,6 +3,14 @@ import Container from "../ui/container";
 import Button from "../ui/button";
 
 const SaveLoadPanel = () => {
+  const onSave = () => {
+    console.log("save");
+  };
+
+  const onLoad = () => {
+    console.log("load");
+  };
+
   return (
     <Container className="bottom-0 left-0">
       <div className="justify-center text-center">
@@ -12,8 +20,12 @@ const SaveLoadPanel = () => {
       </div>
 
       <div className="flex flex-row gap-2 justify-center text-center">
-        <Button className="w-1/2">Save</Button>
-        <Button className="w-1/2">Load</Button>
+        <Button className="w-1/2" onClick={onSave}>
+          Save
+        </Button>
+        <Button className="w-1/2" onClick={onLoad}>
+          Load
+        </Button>
       </div>
     </Container>
   );

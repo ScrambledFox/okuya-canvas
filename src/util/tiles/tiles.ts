@@ -247,8 +247,6 @@ export const getFurnitureInternalTiles = (furniture: Furniture): Set<Tile> => {
     for (let y = minY; y <= maxY; y++) {
       const tile = getTileAtCoord(x, y);
 
-      console.log(x, y);
-
       const localX = x - minX;
       const localY = y - minY;
 

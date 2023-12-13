@@ -12,12 +12,23 @@ import Version from "@/components/version";
 import { useToolState } from "@/state/tools/toolState";
 import WindowToolDrawer from "@/components/tools/tool/windowTool/windowToolDrawer";
 import FurniturePanel from "@/components/furniture";
+import StatsPanel from "@/components/stats";
+import ExplainabilityPanel from "@/components/explain";
+import { useSelectToolState } from "@/state/tools/selectToolState";
+import { useEditorState } from "@/state/editorState";
 
 const Canvas = dynamic(() => import("@/components/canvas"), {
   ssr: false,
 });
 
 export default function Page() {
+  const selectedObject = useSelectToolState((state) => state.selectedObject);
+  const selectedObjectIsFurniture =
+    selectedObject == null
+      ? false
+      : useEditorState.getState().idDictionary[selectedObject].type ===
+        "furniture";
+
   useEffect(() => {
     const onKeyUp = (e: any) => {};
 
@@ -40,13 +51,17 @@ export default function Page() {
 
   return (
     <div className="h-screen" onMouseDown={onMouseDown}>
-      <Canvas />
+      <div id="center">
+        <Canvas />
+        <StatsPanel />
+      </div>
 
       <div id="panels">
         <ToolBar />
         <FurniturePanel />
         <FilterDock />
         <SaveLoadPanel />
+        {selectedObjectIsFurniture && <ExplainabilityPanel />}
       </div>
 
       <div id="tools">

@@ -50,8 +50,6 @@ export const isInShape = (pos: Vector2d, f: Furniture): boolean => {
   const shape = rec.recipe.shape.map((row) => row.split(""));
   const rotatedShape = rotateMatrix(shape, f.rotation);
 
-  console.log(f.id, rotatedShape, x, y, f.rotation);
-
   if (x < 0 || y < 0) return true;
   if (x >= rotatedShape[0].length || y >= rotatedShape.length) return true;
 

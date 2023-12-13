@@ -4,10 +4,19 @@ import { processTiles } from "@/util/tiles/tileProcessing";
 import { getAllWallPoints } from "@/util/walls/walls";
 import { getPointsAtCoords } from "@/util/points/points";
 import { useFurnitureState } from "./furnitureState";
+import { calculateScore } from "@/util/furniture/score";
 
 export type ProcessingState = {
   processTiles: () => void;
   processWalls: () => void;
+  calculateFurnitureScores: () => void;
+};
+
+export const processAllObjects = () => {
+  useProcessingState.getState().processTiles();
+  useProcessingState.getState().processWalls();
+  useProcessingState.getState().calculateFurnitureScores();
+  useEditorState.getState().updateIdDictionary();
 };
 
 export const useProcessingState = create<ProcessingState>((set, get) => ({
@@ -28,5 +37,15 @@ export const useProcessingState = create<ProcessingState>((set, get) => ({
     const wallPoints = getAllWallPoints(walls);
     const pointReferences = getPointsAtCoords(wallPoints);
     useEditorState.getState().setWallPoints(pointReferences);
+  },
+
+  calculateFurnitureScores: () => {
+    const furniture = useFurnitureState.getState().furniture;
+    useFurnitureState.getState().resetScore();
+    furniture.forEach((f) => {
+      f.score = calculateScore(f);
+      useFurnitureState.getState().addScore(f.score);
+    });
+    useFurnitureState.getState().setFurnitureWithoutProcessing(furniture);
   },
 }));

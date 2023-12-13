@@ -18,10 +18,6 @@ export class Vector2d {
 
     const newVector = new Vector2d(newX + center.x, newY + center.y);
 
-    console.log(x, y);
-    console.log(newVector);
-    console.log(newVector.rounded);
-
     return new Vector2d(newX + center.x, newY + center.y);
   }
 

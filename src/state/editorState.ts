@@ -1,16 +1,10 @@
 import { Door, Wall } from "@/types/inter";
 import { GridPoint, GridTile } from "@/types/tiles";
 import { create } from "zustand";
-import { useProcessingState } from "./processingState";
+import { processAllObjects, useProcessingState } from "./processingState";
 import { updateIdDictionary } from "@/util/ids";
 import { handleDeleteObjectWithId } from "@/util/grid/objects";
 import { Furniture } from "@/types/furniture";
-
-const process = () => {
-  useProcessingState.getState().processTiles();
-  useProcessingState.getState().processWalls();
-  useEditorState.getState().updateIdDictionary();
-};
 
 export type EditorState = {
   gridSize: { x: number; y: number };
@@ -92,7 +86,7 @@ export const useEditorState = create<EditorState>((set, get) => ({
   walls: [],
   setWalls: (newWalls) => {
     set({ walls: newWalls });
-    process();
+    processAllObjects();
   },
   resetWalls: () => set({ walls: [] }),
 
@@ -110,7 +104,7 @@ export const useEditorState = create<EditorState>((set, get) => ({
   doors: [],
   setDoors: (newDoors) => {
     set({ doors: newDoors });
-    process();
+    processAllObjects();
   },
   resetDoors: () => set({ doors: [] }),
 

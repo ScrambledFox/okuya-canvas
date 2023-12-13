@@ -38,9 +38,9 @@ const FurniturePiece = ({
   position,
   rotation,
 }: Furniture) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
+  // const [isDragging, setIsDragging] = useState(false);
+  // const [offset, setOffset] = useState({ x: 0, y: 0 });
+  // const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
 
   const selected = useSelectToolState((state) => state.selectedObject === id);
 

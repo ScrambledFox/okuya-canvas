@@ -4,12 +4,13 @@ import { useToolState } from "@/state/tools/toolState";
 import { useSelectToolState } from "@/state/tools/selectToolState";
 import WindowGraphics from "../../window";
 import { useWindowToolState } from "@/state/tools/windowToolState";
+import { Vector2d } from "@/util/points/points";
 
 interface WallSegmentProps {
   wallId: string;
   id: string;
-  start: { x: number; y: number };
-  end: { x: number; y: number };
+  start: Vector2d;
+  end: Vector2d;
   hasWindow: boolean;
 }
 

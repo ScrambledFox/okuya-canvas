@@ -41,7 +41,7 @@ const Grid = ({ width, height, size }: GridProps) => {
       Array.from({ length: height }, (i, y) =>
         Array.from({ length: width }, (j, x) => {
           return {
-            pos: { x: x, y: y },
+            pos: new Vector2d(x, y),
             id: uuidv4(),
             color: "black",
           } as GridTile;

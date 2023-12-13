@@ -12,8 +12,8 @@ export const pixelsToGrid = 1 / gridToPixels;
 // Return a perpendicular line from the start that fits best within the grid with the target 'end' point.
 // Limits the line to a minimum and maximum length.
 export const getManhattanLine = (
-  start: { x: number; y: number },
-  end: { x: number; y: number },
+  start: Vector2d,
+  end: Vector2d,
   minLength: number = 0,
   maxLength: number = Number.MAX_VALUE
 ) => {

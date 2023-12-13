@@ -32,7 +32,7 @@ const DragLine = ({
 
   useEffect(() => {
     const onMouseMove = (e: any) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      setMousePos(new Vector2d(e.clientX, e.clientY));
     };
 
     window.addEventListener("mousemove", onMouseMove);

@@ -1,3 +1,4 @@
+import { Vector2d } from "@/util/points/points";
 import { ElementType, useState } from "react";
 
 interface DraggableIconProps {
@@ -7,8 +8,8 @@ interface DraggableIconProps {
 
 const DraggableIcon = (props: DraggableIconProps) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [offset, setOffset] = useState(new Vector2d(0, 0));
+  const [position, setPosition] = useState(new Vector2d(0, 0));
 
   const style = {
     color: "gray",
@@ -24,7 +25,7 @@ const DraggableIcon = (props: DraggableIconProps) => {
     const rect = e.target.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    setOffset({ x, y });
+    setOffset(new Vector2d(x, y));
 
     document.body.style.userSelect = "none";
   };
@@ -34,7 +35,7 @@ const DraggableIcon = (props: DraggableIconProps) => {
 
     const x = e.clientX - offset.x;
     const y = e.clientY - offset.y;
-    setPosition({ x, y });
+    setPosition(new Vector2d(x, y));
   };
 
   const onMouseUp = (e: any) => {

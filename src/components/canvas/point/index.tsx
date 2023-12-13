@@ -11,6 +11,7 @@ import {
   convertWindowsInRange,
   startWindowConversionLine,
 } from "@/util/windows/windows";
+import { Vector2d } from "@/util/points/points";
 
 interface PointProps {
   data: GridPoint;
@@ -47,7 +48,7 @@ const Point = ({ data, gridSize, pointSize, colourOverride }: PointProps) => {
         if (useWallToolState.getState().lineStart === null) {
           startWallPlacement({
             pointCoord: data.pos,
-            screenCoord: { x: e.clientX, y: e.clientY },
+            screenCoord: new Vector2d(e.clientX, e.clientY),
           });
         } else {
           if (!useWallToolState.getState().getIsValidLineEndPoint(data.pos))
@@ -55,13 +56,13 @@ const Point = ({ data, gridSize, pointSize, colourOverride }: PointProps) => {
 
           endWallPlacement({
             pointCoord: data.pos,
-            screenCoord: { x: e.clientX, y: e.clientY },
+            screenCoord: new Vector2d(e.clientX, e.clientY),
           });
 
           // Reset the line start to new point
           startWallPlacement({
             pointCoord: data.pos,
-            screenCoord: { x: e.clientX, y: e.clientY },
+            screenCoord: new Vector2d(e.clientX, e.clientY),
           });
 
           // TODO: if line end crosses a line, cancel new line making.
@@ -71,7 +72,7 @@ const Point = ({ data, gridSize, pointSize, colourOverride }: PointProps) => {
         if (useDoorToolState.getState().lineStart === null) {
           startDoorPlacement({
             pointCoord: data.pos,
-            screenCoord: { x: e.clientX, y: e.clientY },
+            screenCoord: new Vector2d(e.clientX, e.clientY),
           });
         } else {
           useDoorToolState.getState().setLineEndTarget(data.pos);
@@ -82,7 +83,7 @@ const Point = ({ data, gridSize, pointSize, colourOverride }: PointProps) => {
         if (useWindowToolState.getState().lineStart === null) {
           startWindowConversionLine({
             pointCoord: data.pos,
-            screenCoord: { x: e.clientX, y: e.clientY },
+            screenCoord: new Vector2d(e.clientX, e.clientY),
           });
         } else {
           convertWindowsInRange(

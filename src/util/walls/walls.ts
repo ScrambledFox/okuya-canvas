@@ -59,7 +59,7 @@ export const generateWallSegments = (
       xDirection === 1 ? x < xEnd : x >= xEnd;
       x += xDirection
     ) {
-      addSegment({ x: x, y: yStart }, { x: x + 1, y: yStart });
+      addSegment(new Vector2d(x, yStart), new Vector2d(x + 1, yStart));
     }
   } else {
     // y is the main axis
@@ -68,7 +68,7 @@ export const generateWallSegments = (
       yDirection === 1 ? y < yEnd : y >= yEnd;
       y += yDirection
     ) {
-      addSegment({ x: xStart, y: y }, { x: xStart, y: y + 1 });
+      addSegment(new Vector2d(xStart, y), new Vector2d(xStart, y + 1));
     }
   }
 
@@ -121,7 +121,7 @@ export const getWallPointsFromCoords = (
       xDirection === 1 ? x <= xEnd : x >= xEnd;
       x += xDirection
     ) {
-      points.add({ x: x, y: yStart });
+      points.add(new Vector2d(x, yStart));
     }
   } else {
     // y is the main axis
@@ -130,7 +130,7 @@ export const getWallPointsFromCoords = (
       yDirection === 1 ? y <= yEnd : y >= yEnd;
       y += yDirection
     ) {
-      points.add({ x: xStart, y: y });
+      points.add(new Vector2d(xStart, y));
     }
   }
 

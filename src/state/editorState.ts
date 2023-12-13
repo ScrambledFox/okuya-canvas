@@ -5,9 +5,10 @@ import { processAllObjects, useProcessingState } from "./processingState";
 import { updateIdDictionary } from "@/util/ids";
 import { handleDeleteObjectWithId } from "@/util/grid/objects";
 import { Furniture } from "@/types/furniture";
+import { Vector2d } from "@/util/points/points";
 
 export type EditorState = {
-  gridSize: { x: number; y: number };
+  gridSize: Vector2d;
   tileSize: number;
 
   zoomLevel: number;
@@ -44,7 +45,7 @@ export type EditorState = {
 };
 
 export const useEditorState = create<EditorState>((set, get) => ({
-  gridSize: { x: 30, y: 30 },
+  gridSize: new Vector2d(30, 30),
   tileSize: 25,
 
   zoomLevel: 1,

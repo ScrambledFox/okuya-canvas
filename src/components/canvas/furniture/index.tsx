@@ -6,6 +6,12 @@ import { useToolState } from "@/state/tools/toolState";
 import { useSelectToolState } from "@/state/tools/selectToolState";
 import { getFurnitureRecipe } from "@/util/furniture/recipes";
 import { Vector2d } from "@/util/points/points";
+import { useTipState } from "@/state/explain/tipState";
+import {
+  getBedCloseToDoorTip,
+  getBedSpaceBothSidesTip,
+  getBedSpaceNoSidesTip,
+} from "@/util/explain/tip";
 
 interface FurnitureRendererProps {}
 
@@ -53,6 +59,14 @@ const FurniturePiece = ({
 
   const horizontalEven = recipe.width % 2 === 0;
   const verticalEven = recipe.height % 2 === 0;
+
+  useEffect(() => {
+    useTipState.getState().addTip(getBedCloseToDoorTip(id));
+    useTipState.getState().addTip(getBedSpaceBothSidesTip(id));
+    useTipState.getState().addTip(getBedSpaceNoSidesTip(id));
+
+    console.log("added tips", useTipState.getState().tips);
+  }, [id]);
 
   useEffect(() => {
     const onKeyDown = (e: any) => {

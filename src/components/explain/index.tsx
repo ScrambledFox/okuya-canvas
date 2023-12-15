@@ -3,7 +3,12 @@ import Container from "../ui/container";
 import TipPanel from "./tip";
 
 import { v4 as uuidv4 } from "uuid";
-import { getTipIcon } from "@/util/explain/tip";
+import {
+  getBedCloseToDoorTip,
+  getBedSpaceBothSidesTip,
+  getBedSpaceNoSidesTip,
+  getTipIcon,
+} from "@/util/explain/tip";
 import { useSelectToolState } from "@/state/tools/selectToolState";
 import { useTipState } from "@/state/explain/tipState";
 import { Tip } from "@/types/explain/tip";
@@ -40,7 +45,8 @@ const ExplainabilityPanel = () => {
 
   useEffect(() => {
     if (selectedId !== null) {
-      setTipsSelected(tips.filter((tip) => tip.furnitureId === selectedId));
+      // setTipsSelected(tips.filter((tip) => tip.furnitureId === selectedId));
+      setTipsSelected(tips);
     }
   }, [selectedId, tips]);
 

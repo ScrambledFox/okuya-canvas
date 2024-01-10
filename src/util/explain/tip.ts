@@ -83,5 +83,18 @@ export const getBedCloseToDoorTip = (fId: string): Tip => {
       "The bed is too close to the door. This is bad as the door might not open or it will be uncomfortable to sleep directly next to the door. Try to move the bed further away from the door.",
     furnitureId: fId,
     type: "warning",
+    link: "https://www.thespruce.com/feng-shui-bed-placement-1275062",
+  };
+};
+
+export const getBedInHighTrafficAreaTip = (fId: string): Tip => {
+  return {
+    id: "bed-in-high-traffic-area",
+    title: "Bed is in a high activity area",
+    content:
+      "The bed is in a high traffic area. This is bad as people will be walking around the bed often. Try to move the bed to a less busy area. This will also reduce the feeling of pressure while sleeping.",
+    furnitureId: fId,
+    type: "warning",
+    link: "https://www.thespruce.com/feng-shui-bed-placement-1275062",
   };
 };

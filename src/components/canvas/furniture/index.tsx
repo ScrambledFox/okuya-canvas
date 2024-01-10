@@ -9,6 +9,7 @@ import { Vector2d } from "@/util/points/points";
 import { useTipState } from "@/state/explain/tipState";
 import {
   getBedCloseToDoorTip,
+  getBedInHighTrafficAreaTip,
   getBedSpaceBothSidesTip,
   getBedSpaceNoSidesTip,
 } from "@/util/explain/tip";
@@ -61,9 +62,10 @@ const FurniturePiece = ({
   const verticalEven = recipe.height % 2 === 0;
 
   useEffect(() => {
-    useTipState.getState().addTip(getBedCloseToDoorTip(id));
-    useTipState.getState().addTip(getBedSpaceBothSidesTip(id));
-    useTipState.getState().addTip(getBedSpaceNoSidesTip(id));
+    // useTipState.getState().addTip(getBedSpaceBothSidesTip(id));
+    // useTipState.getState().addTip(getBedCloseToDoorTip(id));
+    // useTipState.getState().addTip(getBedSpaceNoSidesTip(id));
+    useTipState.getState().addTip(getBedInHighTrafficAreaTip(id));
 
     console.log("added tips", useTipState.getState().tips);
   }, [id]);

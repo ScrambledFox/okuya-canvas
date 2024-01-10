@@ -16,6 +16,7 @@ import { useSelectToolState } from "@/state/tools/selectToolState";
 import { useEditorState } from "@/state/editorState";
 import SocketHandler from "@/components/dash/socket";
 import SendChangePanel from "@/components/dash/changePanel";
+import AIPanel from "@/components/ai";
 
 const Canvas = dynamic(() => import("@/components/canvas"), {
   ssr: false,
@@ -69,6 +70,7 @@ export default function Page() {
         <WallToolDrawer />
         <DoorToolDrawer />
         <WindowToolDrawer />
+        <AIPanel />
       </div>
 
       <div id="connections">

@@ -6,7 +6,7 @@ const SendChangePanel = () => {
   const isDirty = useNetworkState((state) => state.canvasIsDirty);
 
   return (
-    <Container className={"bottom-0 right-0"}>
+    <Container className={"bottom-10 right-0"}>
       <div className="justify-center text-center">
         <h1 className="text-neutral-100 text-lg font-semibold">Send Changes</h1>
       </div>
@@ -24,7 +24,7 @@ const SendChangePanel = () => {
 
       <div>
         <button
-          className="w-full bg-primary-500 text-neutral-100 font-semibold p-2 rounded-lg mt-2"
+          className="w-full bg-slate-900  text-neutral-100 font-semibold p-2 rounded-lg mt-2"
           onClick={() => {
             useNetworkState.getState().emit("send-changes");
           }}

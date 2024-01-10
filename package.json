@@ -1,6 +1,6 @@
 {
   "name": "okuya-canvas",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@svgdotjs/svg.js": "^3.2.0",
+    "@types/socket.io": "^3.0.2",
     "color": "^4.2.3",
     "konva": "^9.2.2",
     "next": "13.5.4",
@@ -17,6 +18,8 @@
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "react-spinners": "^0.13.8",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2",
     "uuid": "^9.0.1",
     "zustand": "^4.4.7"
   },
